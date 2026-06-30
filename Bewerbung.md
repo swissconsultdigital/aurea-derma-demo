@@ -3,7 +3,7 @@
 **Auftraggeber:** WE FRANCHISE GmbH · Ansprechpartnerin: Ellen Müller
 **Bewerber:** Gabriel Jäger · Swiss Consult Digital · Gordola (TI)
 **Beilage:** Premium-Entwurf – Startseite + Longevity-Anamnese-Seite, bereits umgesetzt als **lauffähiges WordPress-Block-Theme** (zwei Designvarianten)
-**Live-Demo (klickbar):** https://supremor911.github.io/aurea-derma-demo/varianten.html
+**Live-Demo (klickbar):** https://swissconsultdigital.github.io/aurea-derma-demo/varianten.html
 
 > ✅ **Sendefertig:** Verfügbarkeit, Kontaktdaten, Referenzen und Live-Demo sind eingetragen.
 > Optional noch: bestehende Bewerbungs-PDFs (CV/Projektliste/Zertifikate) anhängen.
@@ -103,7 +103,7 @@ Die Ausschreibung verlangt eine für nicht-technische Personen bedienbare Lösun
 
 - **Verfügbarkeit:** Einstieg **nach Absprache** (der geplante Projektstart im Juli 2026 passt gut), Kapazität **bis 15 Stunden pro Woche**; erste Phase (Hauptwebsite + Longevity-Anamnese-Seite) zeitnah umsetzbar.
 - **Honorar:** Richtwert rund **CHF 110/h** auf Schweizer Freelancer-Niveau; für klar definierte Phasen gerne ein faires **Pauschalangebot** – beides verhandelbar.
-- **Referenzen / Arbeitsprobe:** Als sofortige, projektspezifische Arbeitsprobe dient der eigens für diese Ausschreibung erstellte Premium-Entwurf inkl. Longevity-Anamnese-Seite – bereits als lauffähiges WordPress-Block-Theme umgesetzt. **Klickbare Live-Demo (beide Designrichtungen): [supremor911.github.io/aurea-derma-demo](https://supremor911.github.io/aurea-derma-demo/varianten.html)**. Dazu zwei **real ausgelieferte Websites aus meiner Hand**:
+- **Referenzen / Arbeitsprobe:** Als sofortige, projektspezifische Arbeitsprobe dient der eigens für diese Ausschreibung erstellte Premium-Entwurf inkl. Longevity-Anamnese-Seite – bereits als lauffähiges WordPress-Block-Theme umgesetzt. **Klickbare Live-Demo (beide Designrichtungen): [swissconsultdigital.github.io/aurea-derma-demo](https://swissconsultdigital.github.io/aurea-derma-demo/varianten.html)**. Dazu zwei **real ausgelieferte Websites aus meiner Hand**:
   - **[gi-solutions.ch](https://gi-solutions.ch/)** — Website für ein internationales Industrieunternehmen (Metallbearbeitung; Standorte u. a. in der Schweiz), umgesetzt mit **WordPress und dem Page-Builder Divi**, mehrsprachig (DE/EN/Mne), in premium-industrieller Anmutung. Belegt genau den geforderten Stack: WordPress mit Page-Builder, sauber strukturiert und mehrsprachig.
   - **[aktedigital.de](https://aktedigital.de/)** — Website eines Digitalisierungs-/Scanservice mit ausgeprägtem **Datenschutz-Fokus** (DSGVO, BSI TR-RESISCAN, DIN 66399) und **conversion-orientierter** Gestaltung (Vertrauenskennzahlen, segmentierte Lösungen, Kundenstimmen u. a. aus der Medizintechnik, klarer 5-Schritt-Prozess, Lead-Strecke). Belegt genau die zwei Dinge, die für eine Arztpraxis zählen: sorgfältiger Umgang mit Datenschutz und eine Gestaltung, die zu Anfragen führt.
 
@@ -115,5 +115,5 @@ Die Ausschreibung verlangt eine für nicht-technische Personen bedienbare Lösun
 - [x] Verfügbarkeit/Start eingetragen (nach Absprache, bis 15 h/Woche)
 - [x] Kontakt eingetragen (+41 79 352 35 02 · office@swissconsultdigital.ch)
 - [x] Referenzen ergänzt: gi-solutions.ch (WordPress/Divi) + aktedigital.de (Datenschutz/Conversion)
-- [x] Live-Demo-Link beigelegt: supremor911.github.io/aurea-derma-demo
+- [x] Live-Demo-Link beigelegt: swissconsultdigital.github.io/aurea-derma-demo
 - [ ] Optional: bestehende Bewerbungs-PDFs (CV, Projektliste, Zertifikate) angehängt
