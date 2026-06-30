@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="assets/style-b.css">
 </head>
 <body>
+<a href="#hauptinhalt" class="b-skip">Zum Inhalt springen</a>
 
 <!-- NAV -->
 <header class="b-nav scrolled" id="bnav">
@@ -26,15 +27,16 @@
   </nav>
   <div style="display:flex;align-items:center;gap:1rem">
     <a href="index.html#termin" class="b-btn b-btn-cream b-nav-cta">Termin</a>
-    <button class="b-nav-toggle" id="bnavToggle" aria-label="Menü"><span></span><span></span><span></span></button>
+    <button class="b-nav-toggle" id="bnavToggle" aria-label="Menü" aria-expanded="false" aria-controls="bnavlinks"><span></span><span></span><span></span></button>
   </div>
 </header>
 
+<main id="hauptinhalt">
 <section class="b-section b-container" style="padding-top:clamp(7rem,12vw,10rem)">
   <div class="b-head b-reveal">
     <div class="b-breadcrumb"><a href="index.html">Start</a> · Impressum</div>
     <span class="b-eyebrow">Rechtliches</span>
-    <h2>Impressum.</h2>
+    <h1>Impressum.</h1>
   </div>
 
   <div class="b-legal b-reveal d1">
@@ -73,6 +75,7 @@
     <p style="margin-top:2rem;opacity:0.7;font-size:0.86rem">Stand: 2026 · Konzept-Entwurf für die Bewerbung.</p>
   </div>
 </section>
+</main>
 
 <!-- FOOTER -->
 <footer class="b-footer">

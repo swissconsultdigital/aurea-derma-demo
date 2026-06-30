@@ -24,6 +24,7 @@
   --ink-mut:   #5E564A;
   --line:      rgba(243,236,223,0.14);
   --line-ink:  rgba(26,22,17,0.14);
+  --field-line: #7C7264;  /* Formularfeld-Rahmen, ~3.3:1 vs. Feldfüllung (WCAG 1.4.11) */
 
   --serif: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
   --sans:  'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -54,6 +55,11 @@ a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
 ul { list-style: none; }
 ::selection { background: var(--gold); color: var(--noir); }
+/* Skip-Link (2.4.1): erst bei Tastaturfokus sichtbar */
+.b-skip { position: fixed; top: 0.6rem; left: 0.6rem; z-index: 400; background: var(--bone); color: var(--ink);
+  padding: 0.7rem 1.15rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; text-decoration: none;
+  transform: translateY(-220%); transition: transform .2s var(--ease); }
+.b-skip:focus { transform: none; outline: 2px solid var(--gold); outline-offset: 2px; }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 3px; }
 
 h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.04; letter-spacing: -0.012em; }
@@ -142,7 +148,7 @@ body.b-noscroll { overflow: hidden; }
 /* ---------- SECTION HEAD ---------- */
 .b-head { max-width: 760px; margin-bottom: clamp(2.5rem, 5vw, 4.5rem); }
 .b-head.c { margin-inline: auto; text-align: center; }
-.b-head h2 { font-size: var(--fs-h2); margin: 1rem 0; font-weight: 300; hyphens: manual; overflow-wrap: break-word; }
+.b-head h1, .b-head h2 { font-size: var(--fs-h2); margin: 1rem 0; font-weight: 300; hyphens: manual; overflow-wrap: break-word; font-family: var(--serif); color: var(--bone); }
 /* Typografie-Goldstandard: Headlines ausgewogen umbrechen statt Mitten-im-Wort zu trennen. */
 .b-head h2, .b-hero h1, .b-subhero h1 { text-wrap: balance; }
 p, .b-lead { text-wrap: pretty; }
@@ -204,7 +210,7 @@ p, .b-lead { text-wrap: pretty; }
 .b-footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1.3fr; gap: clamp(2rem,4vw,4rem); padding-bottom: 3rem; border-bottom: 1px solid var(--line); }
 .b-footer .b-brand { font-size: 1.7rem; }
 .b-footer p { color: var(--bone-mut); font-size: 0.95rem; margin-top: 1rem; max-width: 38ch; }
-.b-footer h4 { font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.1rem; font-weight: 700; }
+.b-footer h3, .b-footer h4 { font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.1rem; font-weight: 700; font-family: var(--sans); }
 .b-footer-col a, .b-footer-col li { display: block; font-size: 0.95rem; color: var(--bone-mut); padding: 0.32rem 0; transition: color .3s; }
 .b-footer-col a:hover { color: var(--bone); }
 .b-cl { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.95rem; color: var(--bone-mut); padding: 0.32rem 0; }
@@ -282,7 +288,7 @@ p, .b-lead { text-wrap: pretty; }
 .ba-range::-webkit-slider-thumb { -webkit-appearance: none; width: 48px; height: 600px; background: transparent; cursor: ew-resize; }
 .ba-range::-moz-range-track { background: transparent; }
 .ba-range::-moz-range-thumb { width: 48px; height: 600px; border: 0; background: transparent; cursor: ew-resize; }
-.ba-range:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.ba-range:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; box-shadow: 0 0 0 6px rgba(8,6,4,0.6); border-radius: 100px; }
 
 /* ---------- BOOKING TOOL ---------- */
 .bk { max-width: 880px; margin: 0 auto; background: var(--noir-2); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
@@ -591,10 +597,13 @@ fieldset.b-field { border: 0; padding: 0; min-width: 0; }
 .b-field > label, .b-field > legend { display: block; float: none; width: auto; font-size: 0.85rem; font-weight: 600; color: var(--bone); margin-bottom: 0.5rem; padding: 0; }
 .b-field input, .b-field select, .b-field textarea {
   width: 100%; font-family: var(--sans); font-size: 0.97rem; color: var(--bone); background: var(--noir-3);
-  border: 1px solid var(--line); border-radius: 10px; padding: 0.85rem 1rem; min-height: 48px; transition: border-color .3s; }
+  border: 1px solid var(--field-line); border-radius: 10px; padding: 0.85rem 1rem; min-height: 48px; transition: border-color .3s; }
 .b-field textarea { min-height: 104px; resize: vertical; line-height: 1.5; }
 .b-field input::placeholder, .b-field textarea::placeholder { color: var(--bone-mut); opacity: 0.65; }
-.b-field input:focus, .b-field select:focus, .b-field textarea:focus { outline: none; border-color: var(--gold); }
+.b-field input:focus, .b-field select:focus, .b-field textarea:focus { border-color: var(--gold); }
+/* Tastaturfokus: deutlicher 2px-Goldring (konsistent mit dem übrigen UI), nicht nur Rahmenwechsel */
+.b-field input:focus-visible, .b-field select:focus-visible, .b-field textarea:focus-visible {
+  outline: 2px solid var(--gold); outline-offset: 2px; }
 .b-field select { appearance: none; -webkit-appearance: none; cursor: pointer; padding-right: 2.6rem;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23CDA15E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat; background-position: right 1rem center; }

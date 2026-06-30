@@ -2,6 +2,12 @@
 (function () {
   'use strict';
 
+  /* ---------- Dekorative Inline-SVGs fuer AT ausblenden (WCAG 1.1.1) ----------
+     Alle Icons ohne explizite Rolle/Label/Titel sind rein dekorativ → aria-hidden + focusable=false. */
+  document.querySelectorAll('svg:not([aria-hidden]):not([role]):not([aria-label])').forEach(function (s) {
+    if (!s.querySelector('title')) { s.setAttribute('aria-hidden', 'true'); s.setAttribute('focusable', 'false'); }
+  });
+
   /* ---------- Nav ---------- */
   var nav = document.getElementById('bnav');
   var scrollCue = document.querySelector('.b-scroll');
@@ -124,8 +130,8 @@
     window.addEventListener('pointerup', function () { dragging = false; });
     document.querySelectorAll('.ba-pill').forEach(function (p) {
       p.addEventListener('click', function () {
-        document.querySelectorAll('.ba-pill').forEach(function (x) { x.classList.remove('is-active'); });
-        p.classList.add('is-active');
+        document.querySelectorAll('.ba-pill').forEach(function (x) { x.classList.remove('is-active'); x.setAttribute('aria-pressed', 'false'); });
+        p.classList.add('is-active'); p.setAttribute('aria-pressed', 'true');
         var k = p.dataset.case;
         before.src = 'assets/img/ba-' + k + '-before.webp';
         after.src = 'assets/img/ba-' + k + '-after.webp';
@@ -190,18 +196,40 @@
       var list = document.getElementById('bmList'); list.innerHTML = '';
       (s.bullets || []).forEach(function (b) { var li = document.createElement('li'); li.innerHTML = CHK + '<span>' + b + '</span>'; list.appendChild(li); });
       document.getElementById('bmNote').textContent = s.note || '';
-      modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
+      modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); document.body.classList.add('b-noscroll');
+      setTimeout(function () { try { (mX || mPanel).focus(); } catch (e) {} }, 30);   // Fokus in den Dialog
     };
-    var closeModal = function () { modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; };
+    var mPanel = modal.querySelector('.bmodal-panel');
+    var mX = modal.querySelector('.bmodal-x');
+    var mTrigger = null;
+    var closeModal = function () {
+      modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); document.body.classList.remove('b-noscroll');
+      if (mTrigger) { try { mTrigger.focus(); } catch (e) {} mTrigger = null; }   // Fokus zurück an Auslöser
+    };
     modal.querySelectorAll('[data-close]').forEach(function (el) { el.addEventListener('click', closeModal); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+    // ESC + Fokusfalle innerhalb des Dialogs (analog Buchungs-Sheet)
+    modal.addEventListener('keydown', function (e) {
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') { e.preventDefault(); closeModal(); return; }
+      if (e.key === 'Tab') {
+        var foc = Array.prototype.filter.call(mPanel.querySelectorAll('a[href],button,[tabindex]'),
+          function (el) { return !el.hidden && !el.disabled && el.offsetParent !== null && el.tabIndex !== -1; });
+        if (!foc.length) return;
+        var first = foc[0], last = foc[foc.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
     document.querySelectorAll('a.stretch[data-service]').forEach(function (a) {
-      a.addEventListener('click', function (e) { e.preventDefault(); openModal(a.dataset.service); });
+      a.addEventListener('click', function (e) { e.preventDefault(); mTrigger = a; openModal(a.dataset.service); });
     });
   }
 
   /* ---------- FAQ-Akkordeon (Longevity & weitere B-Seiten) ---------- */
-  document.querySelectorAll('.b-faq-q').forEach(function (q) {
+  document.querySelectorAll('.b-faq-q').forEach(function (q, i) {
+    // Disclosure-Beziehung programmatisch ausweisen (aria-controls → Antwort-Panel mit id/role)
+    var ans0 = (q.closest('.b-faq-item') || {}).querySelector ? q.closest('.b-faq-item').querySelector('.b-faq-a') : null;
+    if (ans0) { if (!ans0.id) ans0.id = 'faq-a-' + (i + 1); q.setAttribute('aria-controls', ans0.id); ans0.setAttribute('role', 'region'); }
     q.addEventListener('click', function () {
       var item = q.closest('.b-faq-item');
       var ans = item.querySelector('.b-faq-a');
@@ -399,6 +427,7 @@
     var wrap = document.getElementById('bkReasons'); wrap.innerHTML = '';
     (REASONS[state.fach] || []).forEach(function (r) {
       var b = document.createElement('button'); b.className = 'bk-pill' + (state.grund === r ? ' sel' : ''); b.textContent = r;
+      b.setAttribute('aria-pressed', state.grund === r ? 'true' : 'false');
       b.onclick = function () { state.grund = r; reasonsUI(); updateNav(); };
       wrap.appendChild(b);
     });
@@ -424,7 +453,7 @@
       if (tod) col.setAttribute('aria-current', 'date');
       var h = '<div class="dow">' + DOW[i] + '</div><div class="dom">' + d.getDate() + '</div>' + (tod ? '<div class="bk-today-tag">Heute</div>' : '');
       if (booked) { h += '<div class="bk-none" title="ausgebucht">—</div>'; }
-      else { slots.forEach(function (tm) { h += '<button class="bk-slot' + (state.date === fmt(d) && state.time === tm ? ' sel' : '') + '" data-d="' + fmt(d) + '" data-t="' + tm + '">' + tm + '</button>'; }); }
+      else { slots.forEach(function (tm) { var on = state.date === fmt(d) && state.time === tm; h += '<button class="bk-slot' + (on ? ' sel' : '') + '" aria-pressed="' + (on ? 'true' : 'false') + '" data-d="' + fmt(d) + '" data-t="' + tm + '">' + tm + '</button>'; }); }
       col.innerHTML = h; wk.appendChild(col);
     }
     var empty = document.getElementById('bkEmpty'), jump = document.getElementById('bkJump'), msg = document.getElementById('bkEmptyMsg');
@@ -444,8 +473,8 @@
     }
     wk.querySelectorAll('.bk-slot').forEach(function (b) {
       b.onclick = function () {
-        wk.querySelectorAll('.bk-slot').forEach(function (x) { x.classList.remove('sel'); });
-        b.classList.add('sel'); state.date = b.dataset.d; state.time = b.dataset.t; updateNav();
+        wk.querySelectorAll('.bk-slot').forEach(function (x) { x.classList.remove('sel'); x.setAttribute('aria-pressed', 'false'); });
+        b.classList.add('sel'); b.setAttribute('aria-pressed', 'true'); state.date = b.dataset.d; state.time = b.dataset.t; updateNav();
       };
     });
   }
@@ -690,8 +719,8 @@
 
   document.querySelectorAll('#bkFach .bk-pill').forEach(function (p) {
     p.onclick = function () {
-      document.querySelectorAll('#bkFach .bk-pill').forEach(function (x) { x.classList.remove('sel'); });
-      p.classList.add('sel'); state.fach = p.dataset.fach;
+      document.querySelectorAll('#bkFach .bk-pill').forEach(function (x) { x.classList.remove('sel'); x.setAttribute('aria-pressed', 'false'); });
+      p.classList.add('sel'); p.setAttribute('aria-pressed', 'true'); state.fach = p.dataset.fach;
       if (REASONS[state.fach].indexOf(state.grund) < 0) state.grund = null;
       updateNav();
     };
