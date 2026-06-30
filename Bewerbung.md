@@ -99,7 +99,18 @@ Die Ausschreibung verlangt eine für nicht-technische Personen bedienbare Lösun
 
 ---
 
-## 6 · Verfügbarkeit, Honorar & Referenzen
+## 6 · Optionale Phasen — Shop & Mitgliederbereich (Ausblick)
+
+Die Ausschreibung nennt **Shop** und **Mitgliederbereich** als mögliche spätere Phasen. Beides setzt sauber auf die AUREA-Basis auf:
+
+- **Shop — WooCommerce:** Für Hautpflege-Produkte, Behandlungspakete und **Gutscheine** empfehle ich **WooCommerce** (WP-nativ, keine zweite Plattform, volle DSG-Kontrolle) statt Shopify. Schweizer Zahlung via **Stripe/Datatrans/TWINT**, MWST-konform; Produkte als Variations-/Bundle-Artikel, Gutscheine über WooCommerce-Gutscheine bzw. Gift-Card-Erweiterung. Kartendaten liegen beim Zahlungsdienstleister (PCI), nie auf dem Praxis-Server.
+- **Mitgliederbereich:** Für einen geschützten **Patienten-/Longevity-Bereich** (persönliche Anamnese-Auswertung, Verlaufsberichte, exklusive Inhalte) empfehle ich **MemberPress** oder **Restrict Content Pro**; bei späterem Shop ist **WooCommerce Memberships** die synergetische Wahl (ein System für Käufe *und* Zugänge). Login und geschützte Inhalte in der AUREA-CI; Gesundheitsdaten verschlüsselt und zugriffsbeschränkt — genau wie das bereits gebaute Anfrage-Backend.
+
+Beides empfehle ich als **eigene, klar abgegrenzte Phase** mit fairem Pauschalangebot — bewusst nicht im ersten Wurf, damit die Hauptseite fokussiert und schnell live geht.
+
+---
+
+## 7 · Verfügbarkeit, Honorar & Referenzen
 
 - **Verfügbarkeit:** Einstieg **nach Absprache** (der geplante Projektstart im Juli 2026 passt gut), Kapazität **bis 15 Stunden pro Woche**; erste Phase (Hauptwebsite + Longevity-Anamnese-Seite) zeitnah umsetzbar.
 - **Honorar:** Richtwert rund **CHF 110/h** auf Schweizer Freelancer-Niveau; für klar definierte Phasen gerne ein faires **Pauschalangebot** – beides verhandelbar.
