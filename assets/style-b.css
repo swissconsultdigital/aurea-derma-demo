@@ -46,7 +46,7 @@
 * { -webkit-tap-highlight-color: transparent; }
 :focus:not(:focus-visible) { outline: none; }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
 body { font-family: var(--sans); font-size: 1.05rem; line-height: 1.65; color: var(--bone);
   background: var(--noir); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 img { max-width: 100%; display: block; }
@@ -88,7 +88,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.04; let
 
 /* ---------- NAV ---------- */
 .b-nav { position: fixed; inset: 0 0 auto 0; z-index: 100; display: flex; align-items: center; justify-content: space-between;
-  padding: 1.35rem var(--gut); transition: background .45s var(--ease), padding .45s var(--ease), border-color .45s;
+  padding: 1.35rem var(--gut); padding-top: calc(1.35rem + env(safe-area-inset-top, 0px));
+  padding-left: max(var(--gut), env(safe-area-inset-left)); padding-right: max(var(--gut), env(safe-area-inset-right));
+  transition: background .45s var(--ease), padding .45s var(--ease), border-color .45s;
   border-bottom: 1px solid transparent; }
 .b-nav.scrolled { background: rgba(23,19,15,0.82); backdrop-filter: blur(14px); padding-block: 0.9rem; border-bottom-color: var(--line); }
 .b-brand { font-family: var(--serif); font-size: 1.95rem; font-weight: 400; letter-spacing: 0.01em; color: var(--bone); }
@@ -221,7 +223,11 @@ p, .b-lead { text-wrap: pretty; }
 .aurea-js .b-reveal { opacity: 0; transform: translateY(30px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
 .b-reveal.in { opacity: 1; transform: none; }
 .b-reveal.d1 { transition-delay: .1s; } .b-reveal.d2 { transition-delay: .2s; } .b-reveal.d3 { transition-delay: .3s; }
-@media (prefers-reduced-motion: reduce) { .b-reveal { opacity: 1; transform: none; } * { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) {
+  .b-reveal { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
 
 /* ---------- BEFORE / AFTER SLIDER ---------- */
 .b-ba { text-align: center; }
@@ -293,7 +299,13 @@ p, .b-lead { text-wrap: pretty; }
 .bk-empty .ic { width: 52px; height: 52px; border-radius: 50%; border: 1.5px solid var(--line); color: var(--gold); display: grid; place-items: center; margin: 0 auto 1.2rem; }
 .bk-empty h4 { font-family: var(--serif); font-weight: 400; font-size: 1.3rem; color: var(--bone); margin-bottom: 0.5rem; }
 .bk-empty p { color: var(--bone-mut); margin-bottom: 1.4rem; }
-.bk-nav { display: flex; justify-content: space-between; gap: 1rem; padding: 1.4rem 1.8rem; border-top: 1px solid var(--line); }
+.bk-nav { display: flex; gap: 1rem; padding: 1.4rem 1.8rem; border-top: 1px solid var(--line); }
+.bk-nav #bkFwd { margin-left: auto; }
+/* Schmale Viewports: Buttons stapeln (Primär oben), nichts läuft mehr aus der Karte */
+@media (max-width: 560px) {
+  .bk-nav { flex-direction: column-reverse; gap: 0.7rem; padding-inline: 1.3rem; }
+  .bk-nav .b-btn { width: 100%; margin-left: 0; }
+}
 .bk-summary { display: grid; gap: 0; margin-bottom: 1.6rem; }
 .bk-summary .row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
 .bk-summary .row .k { color: var(--bone-mut); } .bk-summary .row .v { color: var(--bone); font-weight: 600; text-align: right; }
@@ -333,7 +345,7 @@ p, .b-lead { text-wrap: pretty; }
   .b-nav.open .b-nav-links { display: flex; flex-direction: column; position: fixed; inset: 0; background: var(--noir);
     align-items: center; justify-content: center; gap: 1.9rem; font-size: 1.2rem; z-index: 200;
     padding: 6rem var(--gut) calc(2.5rem + env(safe-area-inset-bottom,0px)); }
-  .b-nav.open .b-nav-links a { color: var(--bone); }
+  .b-nav.open .b-nav-links a:not(.b-btn) { color: var(--bone); }
   .b-nav.open .b-nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .b-nav.open .b-nav-toggle span:nth-child(2) { opacity: 0; }
   .b-nav.open .b-nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -499,4 +511,52 @@ p, .b-lead { text-wrap: pretty; }
   .b-choices { grid-template-columns: 1fr; }
   .b-step-row { grid-template-columns: 1fr; gap: 0.5rem; }
   .b-form-body, .b-form-head, .b-form-nav { padding-inline: 1.3rem; }
+}
+
+/* ===========================================================================
+   HIG-/Mobile-UX-Audit-Politur (Gremium-Befunde, gegengeprüft)
+   =========================================================================== */
+
+/* Longevity-Sektion: Text-Link als vollwertiges Tap-Ziel (≥44px), Noir-Look bleibt */
+.b-feature .txt .b-link { padding-block: 0.6rem; min-height: 44px; }
+
+/* Burger-Menü: primärer „Termin buchen"-CTA NUR im offenen Mobil-Overlay */
+.b-nav-menu-cta { display: none; }
+@media (max-width: 900px) {
+  .b-nav.open .b-nav-menu-cta { display: inline-flex; margin-top: 1.2rem; min-width: 220px; }
+  /* Menü-Links als grössere, klar trennbare Tap-Ziele */
+  .b-nav.open .b-nav-links a:not(.b-btn) { display: block; padding: 0.45rem 1.5rem; }
+}
+
+/* Footer: Navigations- & Rechtslinks auf komfortable Tap-Höhe; Telefon/Mail klickbar */
+.b-footer-grid nav a, .b-footer-grid a:not(.b-brand) { display: inline-block; padding-block: 0.32rem; }
+.b-foot-bottom a { display: inline-block; padding: 0.5rem 0.45rem; margin: -0.5rem 0; }
+a.b-cl { padding-block: 0.5rem; text-decoration: none; transition: color .3s; }
+a.b-cl:hover { color: var(--bone); }
+
+/* Kontakt/Mail-Button: Originalschreibweise statt Versalien (Lesbarkeit der Adresse) */
+.b-btn-lower { text-transform: none; letter-spacing: 0.01em; }
+
+/* Placeholder-Kontrast anheben (war 0.65 → unter 4.5:1) */
+.b-field input::placeholder, .b-field textarea::placeholder { opacity: 0.85; }
+
+/* Vorher/Nachher: vertikales Scrollen über dem Bild nicht als Regler-Drag werten */
+.ba-stage, .ba-range { touch-action: pan-y; }
+
+/* Touch: sofortiges Pressed-Feedback; „klebendes" Gold auf Touch-Geräten neutralisieren */
+.b-btn:active, .bk-pill:active, .bk-slot:active, .ba-pill:active, .bk-navbtn:active,
+.b-nav-toggle:active { transform: scale(0.97); }
+@media (hover: none) {
+  .bk-pill:hover { border-color: var(--line); }
+  .bk-slot:hover { background: var(--noir-3); color: var(--bone); border-color: var(--line); }
+  .b-btn-cream:hover { background: var(--bone); transform: none; box-shadow: none; }
+  .b-btn-outline:hover { background: transparent; border-color: rgba(243,236,223,0.4); transform: none; }
+}
+
+/* Absätze in Feature-Texten optisch trennen (Anamnese-Intro war eine Textwand) */
+.b-feature .txt p + p { margin-top: 1em; }
+
+/* Fliesstext in dichten Komponenten auf dem Smartphone auf ≥16px anheben */
+@media (max-width: 600px) {
+  .b-serv-item p, .b-pillar p, .b-measure-c p, .ausblick-card p { font-size: 1rem; line-height: 1.6; }
 }

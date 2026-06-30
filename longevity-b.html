@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <script>document.documentElement.classList.add('aurea-js');</script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Longevity-Anamnese — AUREA (Variante B) · Dermatologie & Longevity, Schwyz</title>
 <meta name="description" content="Die Longevity-Anamnese bei AUREA: ein ausführliches ärztliches Gespräch, das Haut, Lebensstil und Ihre Ziele zusammenführt – Grundlage für gesunde Haut über die Jahre. Variante B (Noir Editorial).">
   <link rel="preload" href="assets/fonts/fraunces-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -150,14 +150,14 @@
         <div class="step-label">Schritt 1 von 4</div>
         <h4>Persönliche Angaben</h4>
         <div class="b-field-row">
-          <div class="b-field"><label>Vorname</label><input type="text" placeholder="Ihr Vorname"></div>
-          <div class="b-field"><label>Nachname</label><input type="text" placeholder="Ihr Nachname"></div>
+          <div class="b-field"><label for="an-vorname">Vorname</label><input id="an-vorname" type="text" autocomplete="given-name" placeholder="Ihr Vorname"></div>
+          <div class="b-field"><label for="an-nachname">Nachname</label><input id="an-nachname" type="text" autocomplete="family-name" placeholder="Ihr Nachname"></div>
         </div>
         <div class="b-field-row">
-          <div class="b-field"><label>Geburtsdatum</label><input type="date"></div>
-          <div class="b-field"><label>Telefon</label><input type="tel" placeholder="+41 79 000 00 00"></div>
+          <div class="b-field"><label for="an-gebdat">Geburtsdatum</label><input id="an-gebdat" type="date" autocomplete="bday"></div>
+          <div class="b-field"><label for="an-tel">Telefon</label><input id="an-tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="+41 79 000 00 00"></div>
         </div>
-        <div class="b-field"><label>E-Mail-Adresse</label><input type="email" placeholder="ihre.adresse@beispiel.ch"></div>
+        <div class="b-field"><label for="an-email">E-Mail-Adresse</label><input id="an-email" type="email" inputmode="email" autocomplete="email" placeholder="ihre.adresse@beispiel.ch"></div>
         <div class="b-field">
           <label>Bevorzugte Kontaktart</label>
           <div class="b-choices">
@@ -172,8 +172,8 @@
         <div class="step-label">Schritt 2 von 4</div>
         <h4>Haut &amp; Gesundheit</h4>
         <div class="b-field">
-          <label>Wie würden Sie Ihren Hauttyp beschreiben?</label>
-          <select><option>Bitte wählen …</option><option>Normal</option><option>Trocken</option><option>Fettig</option><option>Mischhaut</option><option>Empfindlich</option><option>Unsicher</option></select>
+          <label for="an-hauttyp">Wie würden Sie Ihren Hauttyp beschreiben?</label>
+          <select id="an-hauttyp"><option>Bitte wählen …</option><option>Normal</option><option>Trocken</option><option>Fettig</option><option>Mischhaut</option><option>Empfindlich</option><option>Unsicher</option></select>
         </div>
         <div class="b-field">
           <label>Welche Hautanliegen beschäftigen Sie aktuell?</label>
@@ -186,7 +186,7 @@
             <label class="b-choice"><input type="checkbox"> Auffällige Muttermale</label>
           </div>
         </div>
-        <div class="b-field"><label>Bestehen bekannte Hauterkrankungen, Allergien oder relevante Vorerkrankungen?</label><textarea placeholder="z. B. Neurodermitis, Sonnenallergie, frühere Hautbehandlungen – freiwillige Angabe"></textarea></div>
+        <div class="b-field"><label for="an-vorerkrankung">Bestehen bekannte Hauterkrankungen, Allergien oder relevante Vorerkrankungen?</label><textarea id="an-vorerkrankung" placeholder="z. B. Neurodermitis, Sonnenallergie, frühere Hautbehandlungen – freiwillige Angabe"></textarea></div>
         <div class="b-field">
           <label>Gibt es Hauterkrankungen oder Hautkrebs in Ihrer Familie?</label>
           <div class="b-choices">
@@ -202,8 +202,8 @@
         <div class="step-label">Schritt 3 von 4</div>
         <h4>Lebensstil &amp; Ziele</h4>
         <div class="b-field">
-          <label>Wie schätzen Sie Ihren Sonnenschutz im Alltag ein?</label>
-          <select><option>Bitte wählen …</option><option>Täglich konsequent</option><option>Meist im Sommer</option><option>Nur gelegentlich</option><option>Kaum bis nie</option></select>
+          <label for="an-sonnenschutz">Wie schätzen Sie Ihren Sonnenschutz im Alltag ein?</label>
+          <select id="an-sonnenschutz"><option>Bitte wählen …</option><option>Täglich konsequent</option><option>Meist im Sommer</option><option>Nur gelegentlich</option><option>Kaum bis nie</option></select>
         </div>
         <div class="b-field">
           <label>Welche Lebensstil-Faktoren treffen auf Sie zu?</label>
@@ -216,10 +216,10 @@
             <label class="b-choice"><input type="checkbox"> Regelmässiger Alkoholkonsum</label>
           </div>
         </div>
-        <div class="b-field"><label>Was möchten Sie mit der Longevity-Anamnese erreichen?</label><textarea placeholder="Ihre persönlichen Ziele, Wünsche und Erwartungen"></textarea></div>
+        <div class="b-field"><label for="an-ziele">Was möchten Sie mit der Longevity-Anamnese erreichen?</label><textarea id="an-ziele" placeholder="Ihre persönlichen Ziele, Wünsche und Erwartungen"></textarea></div>
         <div class="b-field">
-          <label>Bevorzugter Zeitraum für ein Erstgespräch</label>
-          <select><option>Bitte wählen …</option><option>Vormittags</option><option>Nachmittags</option><option>Abends</option><option>Flexibel</option></select>
+          <label for="an-zeitraum">Bevorzugter Zeitraum für ein Erstgespräch</label>
+          <select id="an-zeitraum"><option>Bitte wählen …</option><option>Vormittags</option><option>Nachmittags</option><option>Abends</option><option>Flexibel</option></select>
         </div>
       </div>
 
@@ -227,14 +227,14 @@
       <div class="b-fstep">
         <div class="step-label">Schritt 4 von 4</div>
         <h4>Bestätigung &amp; Datenschutz</h4>
-        <div class="b-field"><label>Möchten Sie uns vorab noch etwas mitteilen?</label><textarea placeholder="Optionale Anmerkungen"></textarea></div>
+        <div class="b-field"><label for="an-anmerkung">Möchten Sie uns vorab noch etwas mitteilen?</label><textarea id="an-anmerkung" placeholder="Optionale Anmerkungen"></textarea></div>
         <label class="b-consent"><input type="checkbox"><span>Ich habe die <a href="datenschutz-b.html" style="color:var(--gold);text-decoration:underline">Datenschutzerklärung</a> gelesen und willige ein, dass meine Angaben zur Vorbereitung und Durchführung der ärztlichen Beratung vertraulich verarbeitet werden.</span></label>
         <label class="b-consent"><input type="checkbox"><span>Ich bin damit einverstanden, zur Terminkoordination über die angegebene Kontaktart kontaktiert zu werden.</span></label>
       </div>
 
     </div>
     <div class="b-form-nav">
-      <button class="b-btn b-btn-outline" data-bprev style="visibility:hidden">Zurück</button>
+      <button class="b-btn b-btn-outline" data-bprev style="display:none">Zurück</button>
       <button class="b-btn b-btn-cream" data-bnext>Weiter</button>
     </div>
   </div>

@@ -13,9 +13,13 @@
   var t = document.getElementById('bnavToggle');
   var navLinks = document.getElementById('bnavlinks');
   function setMenu(open) {
+    var was = nav.classList.contains('open');
     nav.classList.toggle('open', open);
     document.body.classList.toggle('b-noscroll', open);
     if (t) { t.setAttribute('aria-expanded', open ? 'true' : 'false'); t.setAttribute('aria-label', open ? 'Menü schliessen' : 'Menü'); }
+    // Fokus mitführen: beim Öffnen auf den ersten Link, beim Schliessen zurück zum Toggle
+    if (open && navLinks) { var first = navLinks.querySelector('a'); if (first) first.focus(); }
+    else if (!open && was && t) { t.focus(); }
   }
   if (t) {
     t.setAttribute('aria-controls', 'bnavlinks');
@@ -157,22 +161,34 @@
     var fnext = bform.querySelector('[data-bnext]');
     var fprev = bform.querySelector('[data-bprev]');
     var fcur = 0;
+    var consents = Array.prototype.slice.call(bform.querySelectorAll('.b-consent input[type="checkbox"]'));
+    var consentsOk = function () { return consents.length === 0 || consents.every(function (c) { return c.checked; }); };
+    var updateNext = function () {
+      var blocked = (fcur === fsteps.length - 1) && !consentsOk();
+      fnext.disabled = blocked;
+      fnext.style.opacity = blocked ? '0.45' : '';
+      fnext.style.cursor = blocked ? 'not-allowed' : '';
+    };
     var frender = function () {
       fsteps.forEach(function (s, i) { s.classList.toggle('active', i === fcur); });
       fdots.forEach(function (d, i) { d.classList.toggle('active', i <= fcur); });
-      fprev.style.visibility = fcur === 0 ? 'hidden' : 'visible';
+      fprev.style.display = fcur === 0 ? 'none' : '';
       fnext.textContent = fcur === fsteps.length - 1 ? 'Anfrage absenden' : 'Weiter';
+      updateNext();
     };
+    consents.forEach(function (c) { c.addEventListener('change', updateNext); });
     fnext.addEventListener('click', function () {
+      if (fnext.disabled) return;
       if (fcur < fsteps.length - 1) { fcur++; frender(); }   // kein scrollIntoView → keine Y-Sprünge
       else {
         bform.querySelector('.b-form-body').innerHTML =
-          '<div class="b-form-done"><div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>' +
+          '<div class="b-form-done" role="status" tabindex="-1"><div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>' +
           '<h4>Vielen Dank für Ihr Vertrauen</h4>' +
           '<p>Ihre Angaben sind bei uns eingegangen. Dr. med. Carla Brunner und das AUREA Team melden sich zeitnah und diskret bei Ihnen, um Ihr persönliches Longevity-Anamnese-Gespräch zu vereinbaren.</p>' +
           '<p style="margin-top:1rem;font-size:0.82rem;color:var(--bone-mut);opacity:0.7">Demonstration — in diesem Mockup werden keine Daten übermittelt oder gespeichert.</p></div>';
         bform.querySelector('.b-form-nav').style.display = 'none';
         fdots.forEach(function (d) { d.classList.add('active'); });
+        var done = bform.querySelector('.b-form-done'); if (done) done.focus();
       }
     });
     fprev.addEventListener('click', function () { if (fcur > 0) { fcur--; frender(); } });
@@ -292,7 +308,7 @@
            (state.step === 2 && state.date && state.time) || state.step === 3;
   }
   function updateNav() {
-    back.style.visibility = state.step === 0 ? 'hidden' : 'visible';
+    back.style.display = state.step === 0 ? 'none' : '';
     fwd.textContent = state.step === 3 ? 'Anfrage senden' : 'Weiter';
     fwd.disabled = !canAdvance(); fwd.style.opacity = canAdvance() ? '1' : '0.45';
   }
@@ -327,11 +343,12 @@
     if (state.step < 3) { state.step++; render(); }
     else {
       document.querySelector('.bk-body').innerHTML =
-        '<div class="bk-done"><div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>' +
+        '<div class="bk-done" role="status" tabindex="-1"><div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>' +
         '<h3 style="margin-bottom:.6rem">Terminanfrage gesendet</h3>' +
         '<p>Vielen Dank. Wir haben Ihre Anfrage für den <strong style="color:var(--bone)">' + state.date + ' um ' + state.time + ' Uhr</strong> erhalten und melden uns zeitnah und diskret zur Bestätigung.</p></div>';
       document.querySelector('.bk-nav').style.display = 'none';
       stepsEl.querySelectorAll('.s').forEach(function (s) { s.classList.add('done'); });
+      var bkDone = document.querySelector('.bk-done'); if (bkDone) bkDone.focus();
     }
   };
   back.onclick = function () { if (state.step > 0) { state.step--; render(); } };
