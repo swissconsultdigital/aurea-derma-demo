@@ -41,6 +41,11 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* Touch-Politur: kein blauer Tap-Flash auf Smartphones; Fokusring nur für Tastatur
+   (Accessibility bleibt erhalten, sieht aber bei Maus/Touch sauber aus). */
+* { -webkit-tap-highlight-color: transparent; }
+:focus:not(:focus-visible) { outline: none; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
 html { scroll-behavior: smooth; }
 body { font-family: var(--sans); font-size: 1.05rem; line-height: 1.65; color: var(--bone);
   background: var(--noir); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
@@ -61,11 +66,12 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.04; let
 .b-lead { font-size: var(--fs-lead); color: var(--bone-mut); line-height: 1.6; }
 
 /* Buttons — cream pill (primary), outline (secondary) */
-.b-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.6em;
-  font-family: var(--sans); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.16em; text-transform: uppercase;
-  padding: 1.15rem 2.2rem; border-radius: 100px; min-height: 44px;
+.b-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.55em;
+  font-family: var(--sans); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.13em; text-transform: uppercase;
+  padding: 1.1rem 2.1rem; border-radius: 100px; min-height: 50px; white-space: nowrap;
   transition: transform .45s var(--ease), background .35s, color .35s, box-shadow .45s var(--ease); }
-.b-btn svg { width: 1.05em; height: 1.05em; }
+.b-btn svg { width: 1.25em; height: 1.25em; flex-shrink: 0; transition: transform .35s var(--ease); }
+.b-btn:hover svg { transform: translateX(4px); }
 .b-btn-cream { background: var(--bone); color: var(--ink); }
 .b-btn-cream:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 18px 40px -18px rgba(0,0,0,0.6); }
 .b-btn-outline { border: 1.5px solid rgba(243,236,223,0.4); color: var(--bone); }
@@ -92,6 +98,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.04; let
 .b-nav-cta { padding: 0.85rem 1.6rem; font-size: 0.74rem; }
 .b-nav-toggle { display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px; width: 44px; height: 44px; }
 .b-nav-toggle span { width: 26px; height: 2px; background: var(--bone); border-radius: 2px; transition: .35s var(--ease); }
+/* Scroll-Sperre des Hintergrunds, solange das Mobil-Menü offen ist */
+body.b-noscroll { overflow: hidden; }
 
 /* ---------- HERO ---------- */
 .b-hero { position: relative; min-height: 100svh; display: flex; align-items: center; overflow: hidden; }
@@ -317,9 +325,15 @@ p, .b-lead { text-wrap: pretty; }
 @media (max-width: 900px) {
   .b-nav-links { display: none; }
   .b-nav-cta { display: none; }
-  .b-nav-toggle { display: flex; }
+  .b-nav-toggle { display: flex; position: relative; z-index: 210; }
+  /* Offen: Header-backdrop-filter MUSS aus sein — sonst wird der fixe Overlay am gefilterten
+     Header (winzige Höhe) statt am Viewport ausgerichtet → abgeschnittenes, unleserliches Menü. */
+  .b-nav.open { background: var(--noir); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom-color: transparent; }
+  .b-nav.open .b-brand { position: relative; z-index: 210; }
   .b-nav.open .b-nav-links { display: flex; flex-direction: column; position: fixed; inset: 0; background: var(--noir);
-    align-items: center; justify-content: center; gap: 2.2rem; font-size: 1.1rem; z-index: 99; }
+    align-items: center; justify-content: center; gap: 1.9rem; font-size: 1.2rem; z-index: 200;
+    padding: 6rem var(--gut) calc(2.5rem + env(safe-area-inset-bottom,0px)); }
+  .b-nav.open .b-nav-links a { color: var(--bone); }
   .b-nav.open .b-nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .b-nav.open .b-nav-toggle span:nth-child(2) { opacity: 0; }
   .b-nav.open .b-nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -340,9 +354,10 @@ p, .b-lead { text-wrap: pretty; }
 }
 @media (max-width: 560px) {
   .b-footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-  /* Hero-Buttons sauber gestapelt & voll zentriert statt nebeneinander gequetscht */
-  .b-hero .b-hero-actions { flex-direction: column; align-items: stretch; gap: 0.85rem; }
-  .b-hero .b-hero-actions .b-btn { flex: none; width: 100%; }
+  /* Hero- & Kontakt-Buttons sauber gestapelt & voll zentriert statt nebeneinander gequetscht
+     (verhindert u. a. den Umbruch der Telefonnummer im Kontakt-Button) */
+  .b-hero-actions { flex-direction: column; align-items: stretch; gap: 0.85rem; }
+  .b-hero-actions .b-btn { flex: none; width: 100%; }
 }
 @media (max-width: 760px) {
   .bk-week { grid-template-columns: repeat(3, 1fr); }

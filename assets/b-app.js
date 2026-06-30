@@ -11,11 +11,21 @@
   }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
   var t = document.getElementById('bnavToggle');
+  var navLinks = document.getElementById('bnavlinks');
+  function setMenu(open) {
+    nav.classList.toggle('open', open);
+    document.body.classList.toggle('b-noscroll', open);
+    if (t) { t.setAttribute('aria-expanded', open ? 'true' : 'false'); t.setAttribute('aria-label', open ? 'Menü schliessen' : 'Menü'); }
+  }
   if (t) {
-    t.addEventListener('click', function () { nav.classList.toggle('open'); });
+    t.setAttribute('aria-controls', 'bnavlinks');
+    t.addEventListener('click', function () { setMenu(!nav.classList.contains('open')); });
     document.querySelectorAll('#bnavlinks a').forEach(function (a) {
-      a.addEventListener('click', function () { nav.classList.remove('open'); });
+      a.addEventListener('click', function () { setMenu(false); });
     });
+    // Tap auf leere Overlay-Fläche (nicht auf einen Link) schliesst ebenfalls
+    if (navLinks) navLinks.addEventListener('click', function (e) { if (e.target === navLinks) setMenu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
   }
 
   /* ---------- Reveal ---------- */
@@ -290,7 +300,16 @@
     updateStepsUI();
     steps.forEach(function (s, i) { s.classList.toggle('active', i === state.step); });
     if (state.step === 1) reasonsUI();
-    if (state.step === 2) calUI();
+    if (state.step === 2) {
+      // Kalender beim ersten Öffnen direkt auf die erste Woche MIT freien Terminen stellen,
+      // statt auf der (ausgebuchten) aktuellen Woche zu landen. Zurückblättern bleibt möglich.
+      if (!state.calInit) {
+        state.calInit = true;
+        var nf0 = nextFree();
+        if (nf0) state.weekOffset = Math.round((sow(nf0.date) - sow(TODAY)) / (7 * 864e5));
+      }
+      calUI();
+    }
     if (state.step === 3) confirmUI();
     updateNav();
   }
