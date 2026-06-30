@@ -8,16 +8,18 @@
 
 | Status | Anzahl |
 |---|---|
-| ✅ Erfüllt | 9 |
-| 🟡 Teilweise | 20 |
+| ✅ Erfüllt | 10 |
+| 🟡 Teilweise | 19 |
 | ⬜ Offen | 7 |
+
+*Stand 29.6.: Consent-Management von 🟡 auf ✅ (dezentes Banner gebaut). Weitere im Detail dokumentierte 🟡→🟢-Fortschritte (Plugin/REST, lokale Fonts, native Blöcke, Web-Referenzen) siehe STAND.md.*
 
 | Cluster | ✅ | 🟡 | ⬜ |
 |---|--:|--:|--:|
 | Liefergegenstaende | 2 | 2 | 0 |
 | Premium-Anmutung, Design auf Basis CI, medizinische/Premium-Marken-Erfahrung | 2 | 4 | 0 |
 | WordPress-Architektur | 2 | 3 | 0 |
-| Performance-Optimierung + DSGVO/DSG-konforme Umsetzung | 2 | 6 | 3 |
+| Performance-Optimierung + DSGVO/DSG-konforme Umsetzung | 3 | 5 | 3 |
 | Optionale Projektphasen & Skills | 0 | 3 | 2 |
 | Bewerbungsunterlagen | 1 | 2 | 2 |
 
@@ -186,12 +188,12 @@
 - **Lücke:** Checkboxen sind im statischen Mockup nicht als 'required' erzwungen und ohne echte verschluesselte Uebertragung/Backend. Datensparsamkeit ist als Anspruch (Bewerbung.md §4) formuliert, aber nicht funktional verifizierbar.
 - **Nächster Schritt:** Im WP-Build Pflicht-Consent (required) im Multi-Step-Formular (Fluent/Gravity Forms), TLS-Uebertragung, CH/EU-Speicherung und Zugriffsbeschraenkung statt Klartext-Mail technisch umsetzen.
 
-### 🟡 **Teilweise** — Consent-Management: nur technisch notwendige Cookies vorab, Analytics/Marketing erst nach aktiver Einwilligung.
-*Belegart: konzeptionell belegt*
+### 🟡→✅ **Erfüllt (29.6.)** — Consent-Management: nur technisch notwendige Cookies vorab, Analytics/Marketing erst nach aktiver Einwilligung.
+*Belegart: im Mockup demonstriert*
 
-- **Beleg:** datenschutz-b.html §6 (L64) und Bewerbung.md §4 (L80) beschreiben Consent-Banner, cookielose/IP-anonymisierende Loesung und Opt-in vor Tracking.
-- **Lücke:** Im Mockup ist kein funktionierender Consent-/Cookie-Banner implementiert (Grep ueber HTML: nur Beschreibung im Text, keine Banner-UI/-Logik). Reine Absichtserklaerung.
-- **Nächster Schritt:** Consent-Tool (z. B. Complianz, Borlabs Cookie) im WordPress integrieren, das Skripte erst nach Opt-in laedt; im Mockup zumindest eine Banner-Komponente als Beleg ergaenzen.
+- **Beleg:** Dezentes, barrierefreies Consent-Banner gebaut — injiziert via assets/b-app.js auf allen vier Seiten, styliert on-brand in assets/style-b.css (`.b-cc`). Buttons „Nur notwendige" / „Alle akzeptieren" (gleichwertig, DSG/DSGVO-konform), Link zur Datenschutzerklaerung, Wahl in `localStorage` gemerkt (kein erneutes Banner), `role="dialog"` + ESC + Slide-up + `prefers-reduced-motion`. Persistenz-Zyklus per CDP verifiziert (Wahl → entfernt → bleibt nach Reload weg). Spiegelt datenschutz-b.html §6.
+- **Lücke / Befund:** Rechtlich ist in der Schweiz (revDSG) ein Cookie-Banner **ohne** Tracking nicht zwingend, und die Demo setzt keinerlei Analyse-/Marketing-Cookies — das Banner ist hier bewusst ein **Kompetenz-Beleg** (und weil die Ausschreibung Consent-Management ausdrücklich nennt), kein juristischer Zwang. Es gatet im Demo-Zustand einen hypothetischen Analyse-Slot; im Echtbetrieb muss es reale Skripte erst nach Opt-in laden.
+- **Nächster Schritt:** In Produktion an reale optionale Dienste koppeln (cookielose, IP-anonymisierende Loesung bevorzugt); WP-Parität (Banner ins Block-Theme) nachziehen. Ein schwergewichtiges Drittanbieter-Tool (Complianz/Borlabs) ist erst nötig, sobald tatsächlich Tracking eingesetzt wird.
 
 ### 🟡 **Teilweise** — Barrierefreiheit/WCAG-Konformitaet als Qualitaets- und Performance-Begleitanforderung.
 *Belegart: im Mockup demonstriert*

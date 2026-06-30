@@ -169,17 +169,30 @@
       <div class="bk-step">
         <h3>Freien Termin wählen</h3>
         <p class="hint">Verfügbare Zeiten in der gewählten Woche.</p>
-        <div class="bk-cal-head">
-          <button class="bk-navbtn" id="bkPrev" aria-label="Vorherige Woche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-          <span class="kw" id="bkKW">KW</span>
-          <button class="bk-navbtn" id="bkNextWeek" aria-label="Nächste Woche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+        <!-- Desktop/Tablet: Kalender direkt inline (≥761px) -->
+        <div id="bkInlineCal">
+          <div class="bk-cal-head">
+            <button class="bk-navbtn" id="bkPrev" aria-label="Vorherige Woche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+            <span class="kw" id="bkKW">KW</span>
+            <button class="bk-navbtn" id="bkNextWeek" aria-label="Nächste Woche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+          </div>
+          <div class="bk-week" id="bkWeek"></div>
+          <div class="bk-empty" id="bkEmpty" style="display:none">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+            <h4>Diese Woche ist ausgebucht.</h4>
+            <p id="bkEmptyMsg">Nächster freier Termin: <strong class="nf">—</strong></p>
+            <button class="b-btn b-btn-cream" id="bkJump">Zum nächsten Termin<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
         </div>
-        <div class="bk-week" id="bkWeek"></div>
-        <div class="bk-empty" id="bkEmpty" style="display:none">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-          <h4>Diese Woche ist ausgebucht.</h4>
-          <p id="bkEmptyMsg">Nächster freier Termin: <strong class="nf">—</strong></p>
-          <button class="b-btn b-btn-cream" id="bkJump">Zum nächsten Termin<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <!-- Smartphone (≤760px): Auslöser für das Vollbild-Kalender-Sheet -->
+        <div id="bkTrigger">
+          <button type="button" class="bk-trigger" id="bkTriggerBtn">
+            <span class="bk-trigger-main">
+              <span class="bk-trigger-label" id="bkTriggerLabel">Termin wählen</span>
+              <span class="bk-trigger-sub" id="bkTriggerSub">Tag und Uhrzeit im Kalender auswählen.</span>
+            </span>
+            <span class="bk-trigger-cta" id="bkTriggerCta">Öffnen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7h9v9M17 7 7 17"/></svg></span>
+          </button>
         </div>
       </div>
       <div class="bk-step" id="bkConfirm">

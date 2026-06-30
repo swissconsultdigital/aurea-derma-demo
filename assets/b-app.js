@@ -43,6 +43,57 @@
     });
   }
 
+  /* ---------- Cookie-/Consent-Hinweis ---------- */
+  // Dezenter, barrierefreier Consent-Hinweis (läuft auf allen Seiten, vor dem Booking-Return).
+  // Rechtlich: In der Schweiz (revDSG) ist ein Cookie-Banner ohne Tracking NICHT zwingend; diese
+  // Demo setzt keine Analyse-/Marketing-Cookies. Der Hinweis demonstriert das in der Ausschreibung
+  // geforderte Consent-Management (nur technisch Notwendiges vorab, Optionales erst nach
+  // Einwilligung) und merkt die Wahl in localStorage – on-brand, ohne die Seite zu blockieren.
+  (function () {
+    var KEY = 'aurea-consent-v1';
+    var stored = null;
+    try { stored = localStorage.getItem(KEY); } catch (e) { stored = null; }
+    if (stored) return;                                  // Wahl bereits getroffen → kein Hinweis
+    var save = function (v) { try { localStorage.setItem(KEY, v); } catch (e) {} };
+
+    var box = document.createElement('div');
+    box.className = 'b-cc';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'false');
+    box.setAttribute('aria-labelledby', 'ccTitle');
+    box.setAttribute('aria-describedby', 'ccDesc');
+    box.innerHTML =
+      '<div class="b-cc-in">' +
+        '<div class="b-cc-txt">' +
+          '<h2 id="ccTitle">Datenschutz &amp; Cookies</h2>' +
+          '<p id="ccDesc">Diese Website verwendet nur technisch notwendige Cookies für den Betrieb. ' +
+          'Optionale Analyse-Dienste aktivieren wir ausschliesslich mit Ihrer Einwilligung. Mehr dazu in der ' +
+          '<a href="datenschutz-b.html">Datenschutzerklärung</a>.</p>' +
+        '</div>' +
+        '<div class="b-cc-act">' +
+          '<button type="button" class="b-btn b-btn-outline b-cc-min">Nur notwendige</button>' +
+          '<button type="button" class="b-btn b-btn-cream b-cc-all">Alle akzeptieren</button>' +
+        '</div>' +
+      '</div>';
+    document.body.insertBefore(box, document.body.firstChild);   // erstes Element → früh in Lese-/Tab-Folge
+
+    var rmotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var close = function (v) {
+      save(v);
+      box.classList.remove('in');
+      document.removeEventListener('keydown', onKey);
+      if (rmotion) { if (box.parentNode) box.parentNode.removeChild(box); }
+      else { setTimeout(function () { if (box.parentNode) box.parentNode.removeChild(box); }, 380); }
+    };
+    var onKey = function (e) { if (e.key === 'Escape') { e.preventDefault(); close('essential'); } };
+    box.querySelector('.b-cc-min').addEventListener('click', function () { close('essential'); });
+    box.querySelector('.b-cc-all').addEventListener('click', function () { close('all'); });
+    document.addEventListener('keydown', onKey);
+    // sanft einblenden (Slide-up); kein Fokus-Klau → bleibt dezent, ist aber als erstes
+    // role="dialog"-Element früh in der Vorlese-/Tab-Reihenfolge auffindbar.
+    requestAnimationFrame(function () { requestAnimationFrame(function () { box.classList.add('in'); }); });
+  })();
+
   /* ---------- Reveal ---------- */
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) {
@@ -285,7 +336,10 @@
   if (!bk) return;
 
   var DOW = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+  var DOWFULL = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
   var MON = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+  var mq = window.matchMedia ? window.matchMedia('(max-width: 760px)') : { matches: false, addEventListener: function () {}, addListener: function () {} };
+  function isMobile() { return mq.matches; }
   var REASONS = {
     'Dermatologie und Venerologie': ['Dermatologisches Anliegen', 'Kinder', 'Allergie'],
     'Ästhetische Medizin': ['Faltenbehandlung', 'Hautbild & Pigment', 'Beratung Ästhetik']
@@ -294,7 +348,8 @@
   // Deterministischer Hash je Datum → variierende, aber stabile Verfügbarkeit (kein Math.random).
   function h(d, salt) { var k = d.getFullYear() * 1e4 + (d.getMonth() + 1) * 100 + d.getDate() + salt * 0.137; var x = Math.sin(k) * 43758.5453; return x - Math.floor(x); }
 
-  var state = { fach: null, grund: null, date: null, time: null, step: 0, weekOffset: 0, email: '', consent: false };
+  var state = { fach: null, grund: null, date: null, time: null, step: 0, weekOffset: 0, email: '', consent: false,
+                calPhase: 'days', sheetDay: null, sheetDayDate: null, triggerEl: null };
 
   function sow(d) { var x = new Date(d); x.setHours(0, 0, 0, 0); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; }
   function addDays(d, n) { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
@@ -315,6 +370,25 @@
     return out;
   }
   function nextFree() { for (var i = 0; i < 42; i++) { var d = addDays(FIRST_FREE, i); var s = slotsFor(d); if (s.length) return { date: d, time: s[0] }; } return null; }
+  // Verfügbarkeitsstufe je Tag (ohne Uhrzeiten): frei / wenige / ausgebucht / geschlossen.
+  // Abgeleitet aus slotsFor(d).length – Badge und spätere Uhrzeitliste stammen also aus derselben Quelle.
+  function levelFor(d) {
+    if (d.getDay() === 0 || d < FIRST_FREE) return { key: 'off', label: 'geschlossen', selectable: false, aria: 'geschlossen' };
+    var n = slotsFor(d).length;
+    if (n === 0) return { key: 'zu', label: 'ausgebucht', selectable: false, aria: 'ausgebucht' };
+    if (n <= 2) return { key: 'wenige', label: 'wenige', selectable: true, aria: 'wenige Termine frei' };
+    return { key: 'frei', label: 'frei', selectable: true, aria: 'frei' };
+  }
+  function dayLabelShort(d) { return DOW[(d.getDay() + 6) % 7] + ', ' + d.getDate() + '. ' + MON[d.getMonth()]; }
+  function dayLabelFull(d) { return DOWFULL[(d.getDay() + 6) % 7] + ', ' + d.getDate() + '. ' + MON[d.getMonth()]; }
+  function weekStart() { return addDays(sow(TODAY), state.weekOffset * 7); }
+  function weekLabel(ws) {
+    var we = addDays(ws, 5), lbl;
+    if (ws.getMonth() === we.getMonth()) lbl = ws.getDate() + '.–' + we.getDate() + '. ' + MON[we.getMonth()] + ' ' + we.getFullYear();
+    else if (ws.getFullYear() === we.getFullYear()) lbl = ws.getDate() + '. ' + MON[ws.getMonth()] + ' – ' + we.getDate() + '. ' + MON[we.getMonth()] + ' ' + we.getFullYear();
+    else lbl = ws.getDate() + '. ' + MON[ws.getMonth()] + ' ' + ws.getFullYear() + ' – ' + we.getDate() + '. ' + MON[we.getMonth()] + ' ' + we.getFullYear();
+    return 'KW ' + isoWeek(ws) + ' · ' + lbl;
+  }
 
   var stepsEl = bk.querySelector('.bk-steps');
   var steps = Array.prototype.slice.call(bk.querySelectorAll('.bk-step'));
@@ -408,6 +482,188 @@
     fwd.textContent = state.step === 3 ? 'Anfrage senden' : 'Weiter';
     fwd.disabled = !canAdvance(); fwd.style.opacity = canAdvance() ? '1' : '0.45';
   }
+  /* ---- Mobiles Vollbild-Sheet (Airline-Muster, ≤760px): Schritt 3 ausgelagert ---- */
+  var sheet, sBody, sTitle, sKW, sClose, sBack, sWeeknav, sPrev, sNext, sFoot, sNextStep, sLive;
+  var trigBtn, trigLabel, trigSub, trigCta;
+  var CHEV_L = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>';
+  var CHEV_R = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+  var X_SVG  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+
+  function buildSheet() {
+    trigBtn = document.getElementById('bkTriggerBtn');
+    trigLabel = document.getElementById('bkTriggerLabel');
+    trigSub = document.getElementById('bkTriggerSub');
+    trigCta = document.getElementById('bkTriggerCta');
+    if (trigBtn) trigBtn.addEventListener('click', function () { openSheet(); });
+
+    sheet = document.createElement('div');
+    sheet.className = 'bk-sheet'; sheet.id = 'bkSheet';
+    sheet.setAttribute('role', 'dialog'); sheet.setAttribute('aria-modal', 'true');
+    sheet.setAttribute('aria-labelledby', 'bkSheetTitle'); sheet.setAttribute('aria-hidden', 'true');
+    sheet.setAttribute('data-phase', 'days');
+    sheet.innerHTML =
+      '<div class="bk-sheet-head">' +
+        '<div class="bk-sheet-lead">' +
+          '<button type="button" class="bk-sheet-ic" id="bkSheetClose" aria-label="schliessen">' + X_SVG + '</button>' +
+          '<button type="button" class="bk-sheet-ic" id="bkSheetBack" aria-label="Zurück zur Tageswahl" hidden>' + CHEV_L + '</button>' +
+        '</div>' +
+        '<div class="bk-sheet-titles"><h2 class="bk-sheet-title" id="bkSheetTitle" tabindex="-1">Termin wählen</h2><span class="bk-sheet-kw" id="bkSheetKW"></span></div>' +
+        '<div class="bk-sheet-weeknav" id="bkSheetWeeknav">' +
+          '<button type="button" class="bk-navbtn" id="bkSheetPrev" aria-label="Vorherige Woche">' + CHEV_L + '</button>' +
+          '<button type="button" class="bk-navbtn" id="bkSheetNext" aria-label="Nächste Woche">' + CHEV_R + '</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="bk-sheet-body" id="bkSheetBody"></div>' +
+      '<div class="bk-sheet-foot" id="bkSheetFoot"><button type="button" class="b-btn b-btn-cream" id="bkSheetNextStep" disabled>Weiter</button></div>' +
+      '<span class="b-vh" id="bkSheetLive" aria-live="polite"></span>';
+    document.body.appendChild(sheet);
+
+    sBody = sheet.querySelector('#bkSheetBody'); sTitle = sheet.querySelector('#bkSheetTitle');
+    sKW = sheet.querySelector('#bkSheetKW'); sClose = sheet.querySelector('#bkSheetClose');
+    sBack = sheet.querySelector('#bkSheetBack'); sWeeknav = sheet.querySelector('#bkSheetWeeknav');
+    sPrev = sheet.querySelector('#bkSheetPrev'); sNext = sheet.querySelector('#bkSheetNext');
+    sFoot = sheet.querySelector('#bkSheetFoot'); sNextStep = sheet.querySelector('#bkSheetNextStep');
+    sLive = sheet.querySelector('#bkSheetLive');
+
+    sClose.addEventListener('click', function () { closeSheet(); });
+    sBack.addEventListener('click', function () { goDays(); });
+    sPrev.addEventListener('click', function () { if (state.weekOffset > 0) { state.weekOffset--; renderSheetDays(); } });
+    sNext.addEventListener('click', function () { state.weekOffset++; renderSheetDays(); });
+    sNextStep.addEventListener('click', function () { if (state.sheetDay) goTimes(); });
+    sheet.addEventListener('keydown', onSheetKey);
+  }
+
+  function announce(msg) { if (sLive) { sLive.textContent = ''; sLive.textContent = msg; } }
+
+  function updateTrigger() {
+    if (!trigBtn) return;
+    if (state.date && state.time) {
+      trigBtn.classList.add('has-sel');
+      trigLabel.textContent = state.date + ' · ' + state.time + ' Uhr';
+      if (trigSub) trigSub.hidden = true;
+      if (trigCta && trigCta.firstChild) trigCta.firstChild.textContent = 'Ändern';
+    } else {
+      trigBtn.classList.remove('has-sel');
+      trigLabel.textContent = 'Termin wählen';
+      if (trigSub) { trigSub.hidden = false; trigSub.textContent = 'Tag und Uhrzeit im Kalender auswählen.'; }
+      if (trigCta && trigCta.firstChild) trigCta.firstChild.textContent = 'Öffnen';
+    }
+  }
+
+  function openSheet() {
+    if (!sheet) return;
+    state.triggerEl = trigBtn;
+    sheet.classList.add('open'); sheet.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('b-noscroll');
+    renderSheetDays();
+    setTimeout(function () { try { sTitle.focus(); } catch (e) {} }, 30);
+  }
+  function closeSheet(silent) {
+    if (!sheet) return;
+    sheet.classList.remove('open'); sheet.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('b-noscroll');
+    if (!silent && state.triggerEl) { try { state.triggerEl.focus(); } catch (e) {} }
+  }
+
+  function renderSheetDays() {
+    state.calPhase = 'days'; sheet.setAttribute('data-phase', 'days');
+    sClose.hidden = false; sBack.hidden = true;
+    sWeeknav.style.display = ''; sKW.style.display = ''; sFoot.style.display = '';
+    sTitle.textContent = 'Termin wählen';
+    var ws = weekStart();
+    sKW.textContent = weekLabel(ws);
+    sPrev.disabled = state.weekOffset <= 0;
+
+    var pane = document.createElement('div'); pane.className = 'bk-sheet-pane';
+    var list = document.createElement('div'); list.className = 'bk-daylist';
+    var hasFree = false;
+    for (var i = 0; i < 6; i++) {
+      var d = addDays(ws, i), lv = levelFor(d), isSel = state.sheetDay === fmt(d);
+      if (lv.selectable) hasFree = true;
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'bk-dayrow bk-lvl-' + lv.key + (isSel ? ' sel' : '');
+      if (!lv.selectable) b.setAttribute('aria-disabled', 'true');
+      b.setAttribute('aria-pressed', isSel ? 'true' : 'false');
+      b.setAttribute('aria-label', dayLabelFull(d) + ', ' + lv.aria);
+      b.innerHTML =
+        '<span class="bk-dayrow-date"><span class="dow">' + DOW[i] + '</span><span class="dom">' + d.getDate() + '. ' + MON[d.getMonth()] + '</span></span>' +
+        '<span class="bk-badge bk-badge--' + lv.key + '"><span class="dot"></span>' + lv.label + '</span>' +
+        '<span class="chev">' + CHEV_R + '</span>';
+      if (lv.selectable) (function (d, b) {
+        b.addEventListener('click', function () {
+          state.sheetDay = fmt(d); state.sheetDayDate = d;
+          list.querySelectorAll('.bk-dayrow').forEach(function (r) { r.classList.remove('sel'); r.setAttribute('aria-pressed', 'false'); });
+          b.classList.add('sel'); b.setAttribute('aria-pressed', 'true');
+          sNextStep.disabled = false;
+          announce(dayLabelFull(d) + ' gewählt');
+        });
+      })(d, b);
+      list.appendChild(b);
+    }
+    pane.appendChild(list);
+
+    if (!hasFree) {
+      var nf = nextFree();
+      var em = document.createElement('div'); em.className = 'bk-empty';
+      em.innerHTML =
+        '<div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>' +
+        '<h4>Diese Woche ist ausgebucht.</h4>' +
+        '<p>Nächster freier Termin: <strong class="nf" style="color:var(--bone)">' + (nf ? dayLabelShort(nf.date) : '—') + '</strong></p>' +
+        '<button type="button" class="b-btn b-btn-cream" id="bkSheetJump">Zum nächsten Termin' + CHEV_R + '</button>';
+      pane.appendChild(em);
+    }
+    sBody.innerHTML = ''; sBody.appendChild(pane);
+    var jb = sBody.querySelector('#bkSheetJump');
+    if (jb) jb.addEventListener('click', function () {
+      var nf = nextFree(); if (!nf) return;
+      state.weekOffset = Math.round((sow(nf.date) - sow(TODAY)) / (7 * 864e5));
+      renderSheetDays();
+    });
+    sNextStep.disabled = !state.sheetDay;
+    announce(weekLabel(ws));
+  }
+
+  function goTimes() {
+    var d = state.sheetDayDate; if (!d) return;
+    state.calPhase = 'times'; sheet.setAttribute('data-phase', 'times');
+    sClose.hidden = true; sBack.hidden = false;
+    sWeeknav.style.display = 'none'; sKW.style.display = 'none'; sFoot.style.display = 'none';
+    sTitle.textContent = dayLabelShort(d);
+    var pane = document.createElement('div'); pane.className = 'bk-sheet-pane';
+    var html = '<p class="bk-timehint">Bitte wählen Sie eine Uhrzeit für ' + dayLabelShort(d) + '.</p><div class="bk-timegrid">';
+    slotsFor(d).forEach(function (tm) {
+      html += '<button type="button" class="bk-slot" data-t="' + tm + '" aria-label="' + d.getDate() + '. ' + MON[d.getMonth()] + ', ' + tm + ' Uhr">' + tm + '</button>';
+    });
+    html += '</div>';
+    pane.innerHTML = html; sBody.innerHTML = ''; sBody.appendChild(pane);
+    sBody.querySelectorAll('.bk-slot').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        state.date = fmt(d); state.time = btn.dataset.t;
+        announce(btn.dataset.t + ' Uhr gewählt');
+        updateNav(); updateTrigger(); closeSheet(true);
+        state.step = 3; render();
+        var c = document.getElementById('bkConfirm'), hh = c ? c.querySelector('h3') : null;
+        if (hh) { hh.setAttribute('tabindex', '-1'); hh.focus(); }
+      });
+    });
+    setTimeout(function () { try { sTitle.focus(); } catch (e) {} }, 30);
+    announce('Uhrzeiten für ' + dayLabelFull(d));
+  }
+  function goDays() { renderSheetDays(); setTimeout(function () { try { sTitle.focus(); } catch (e) {} }, 30); }
+
+  function onSheetKey(e) {
+    if (!sheet.classList.contains('open')) return;
+    if (e.key === 'Escape') { e.preventDefault(); if (state.calPhase === 'times') goDays(); else closeSheet(); return; }
+    if (e.key === 'Tab') {
+      var foc = Array.prototype.filter.call(sheet.querySelectorAll('button'), function (el) { return !el.hidden && !el.disabled && el.offsetParent !== null; });
+      if (!foc.length) return;
+      var first = foc[0], last = foc[foc.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  }
+
   function render() {
     updateStepsUI();
     steps.forEach(function (s, i) { s.classList.toggle('active', i === state.step); });
@@ -420,7 +676,10 @@
         var nf0 = nextFree();
         if (nf0) state.weekOffset = Math.round((sow(nf0.date) - sow(TODAY)) / (7 * 864e5));
       }
-      calUI();
+      if (isMobile()) { updateTrigger(); openSheet(); }   // Mobile: Trigger-Karte + Vollbild-Sheet
+      else calUI();                                        // Desktop/Tablet: Inline-Kalender
+    } else if (sheet && sheet.classList.contains('open')) {
+      closeSheet(true);                                    // Schritt verlassen → offenes Sheet schliessen
     }
     if (state.step === 3) confirmUI();
     updateNav();
@@ -450,6 +709,17 @@
   back.onclick = function () { if (state.step > 0) { state.step--; render(); } };
   document.getElementById('bkPrev').onclick = function () { if (state.weekOffset > 0) { state.weekOffset--; calUI(); } };
   document.getElementById('bkNextWeek').onclick = function () { state.weekOffset++; calUI(); };
+
+  buildSheet();
+  // Bei Wechsel zwischen Mobile/Desktop (Rotation/Resize) sauber zwischen Sheet und Inline wechseln,
+  // ohne die Auswahl zu verlieren.
+  function onMqChange() {
+    if (state.step !== 2) { if (sheet && sheet.classList.contains('open')) closeSheet(true); return; }
+    if (isMobile()) { updateTrigger(); if (!sheet.classList.contains('open')) openSheet(); }
+    else { if (sheet.classList.contains('open')) closeSheet(true); calUI(); }
+  }
+  if (mq.addEventListener) mq.addEventListener('change', onMqChange);
+  else if (mq.addListener) mq.addListener(onMqChange);
 
   render();
 })();
