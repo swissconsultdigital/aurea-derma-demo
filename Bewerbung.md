@@ -3,9 +3,10 @@
 **Auftraggeber:** WE FRANCHISE GmbH · Ansprechpartnerin: Ellen Müller
 **Bewerber:** Gabriel Jäger · Swiss Consult Digital · Gordola (TI)
 **Beilage:** Premium-Entwurf – Startseite + Longevity-Anamnese-Seite, bereits umgesetzt als **lauffähiges WordPress-Block-Theme** (zwei Designvarianten)
+**Live-Demo (klickbar):** https://supremor911.github.io/aurea-derma-demo/varianten.html
 
-> ⚠️ **Vor dem Versenden:** Die mit `[…]` markierten Platzhalter bitte ausfüllen
-> (Verfügbarkeit, Kontaktdaten, Referenzen). Nichts Unausgefülltes verschicken.
+> ✅ **Sendefertig:** Verfügbarkeit, Kontaktdaten, Referenzen und Live-Demo sind eingetragen.
+> Optional noch: bestehende Bewerbungs-PDFs (CV/Projektliste/Zertifikate) anhängen.
 
 ---
 
@@ -23,14 +24,14 @@ Mein Hintergrund ist bewusst ein anderer als der eines klassischen Massen-WordPr
 
 Als Pflege-Ebene empfehle ich den **nativen WordPress-Block- und Site-Editor** (Teil des WP-Kerns): keine zusätzlichen Lizenzkosten, beste Performance ohne Page-Builder-Ballast und sauber DSG-konform. Damit Ihr Team Texte, Bilder und Hinweise gefahrlos selbst pflegen kann, liefere ich fertige, gesperrte Inhalts-Bausteine (Block-Patterns) plus eine kurze Einführung. Wer eine klassische Page-Builder-Oberfläche bevorzugt, erhält dasselbe Design alternativ in Elementor Pro. Den Entwurf habe ich bereits als lauffähiges WordPress-Block-Theme umgesetzt – nicht nur als Bild. Dass ich WordPress nicht nur entwerfe, sondern produktiv ausliefere, belegen zwei eigene Live-Projekte: **gi-solutions.ch** (WordPress/Divi, mehrsprachig, internationales Industrieunternehmen) und **aktedigital.de** (datenschutz- und conversion-fokussiert) – Details unter „Referenzen".
 
-Ich bin in der Schweiz ansässig (Gordola, TI), Deutsch ist meine Muttersprache, und ein 100%-Remote-Setup ist für mich Standard. Verfügbar bin ich **[Verfügbarkeit: ab …]**; der geplante Start im Juli 2026 passt gut. Preislich orientiere ich mich an rund CHF 110/h, für klar umrissene Phasen mache ich Ihnen gerne ein faires Pauschalangebot – beides verhandelbar.
+Ich bin in der Schweiz ansässig (Gordola, TI), Deutsch ist meine Muttersprache, und ein 100%-Remote-Setup ist für mich Standard. Verfügbar bin ich **nach Absprache, mit einer Kapazität von bis zu 15 Stunden pro Woche**; der geplante Start im Juli 2026 passt gut. Preislich orientiere ich mich an rund CHF 110/h, für klar umrissene Phasen mache ich Ihnen gerne ein faires Pauschalangebot – beides verhandelbar.
 
 Am liebsten zeige ich Ihnen den Entwurf direkt: In rund 15 Minuten gehe ich mit Ihnen durch die Startseite und die Anamnese-Seite. Sagen Sie mir einfach, wann es Ihnen passt.
 
 Freundliche Grüsse
 Gabriel Jäger
 Swiss Consult Digital, Gordola (TI)
-**[Kontakt: Telefon / E-Mail]**
+Tel. +41 79 352 35 02 · office@swissconsultdigital.ch
 
 ---
 
@@ -44,11 +45,11 @@ statt nur ein Angebot zu schreiben, habe ich für die Praxis von Dr. med. Carla 
 
 Mein Hintergrund ist Senior-Engineering in regulierten Umfeldern (u. a. Pharma/GMP). Das heisst für Ihr Projekt: konsequenter Datenschutz (DSG/DSGVO), saubere Dokumentation, termintreue, performante Umsetzung. Als Pflege-Ebene empfehle ich den **nativen WordPress-Block-Editor** (im Kern enthalten: keine Lizenz, top Performance, DSG-freundlich), für Laien per fertige Patterns + Kurzschulung pflegbar – **Elementor Pro** als gleichwertige Alternative, falls eine klassische Page-Builder-Oberfläche gewünscht ist. Den Entwurf habe ich bereits als lauffähiges Block-Theme umgesetzt; zwei eigene Live-Projekte belegen produktive WP-Auslieferung: **gi-solutions.ch** (WordPress/Divi) und **aktedigital.de**.
 
-Ich bin in der Schweiz ansässig, Deutsch-Muttersprachler, 100 % Remote. Verfügbar **[ab …]**, Start 7/2026 passt. Richtwert ~CHF 110/h oder Pauschale – verhandelbar.
+Ich bin in der Schweiz ansässig, Deutsch-Muttersprachler, 100 % Remote. Verfügbar nach Absprache (bis 15 h/Woche), Start 7/2026 passt. Richtwert ~CHF 110/h oder Pauschale – verhandelbar.
 
 Gerne gehe ich den Entwurf in 15 Minuten mit Ihnen durch.
 
-Freundliche Grüsse, Gabriel Jäger · Swiss Consult Digital · **[Kontakt]**
+Freundliche Grüsse, Gabriel Jäger · Swiss Consult Digital · +41 79 352 35 02 · office@swissconsultdigital.ch
 
 ---
 
@@ -100,9 +101,9 @@ Die Ausschreibung verlangt eine für nicht-technische Personen bedienbare Lösun
 
 ## 6 · Verfügbarkeit, Honorar & Referenzen
 
-- **Verfügbarkeit:** Verfügbar für den geplanten Projektstart im Juli 2026; konkret Einstieg **[Start: ab …]**, erste Phase (Hauptwebsite + Longevity-Anamnese-Seite) zeitnah umsetzbar.
+- **Verfügbarkeit:** Einstieg **nach Absprache** (der geplante Projektstart im Juli 2026 passt gut), Kapazität **bis 15 Stunden pro Woche**; erste Phase (Hauptwebsite + Longevity-Anamnese-Seite) zeitnah umsetzbar.
 - **Honorar:** Richtwert rund **CHF 110/h** auf Schweizer Freelancer-Niveau; für klar definierte Phasen gerne ein faires **Pauschalangebot** – beides verhandelbar.
-- **Referenzen / Arbeitsprobe:** Als sofortige, projektspezifische Arbeitsprobe dient der eigens für diese Ausschreibung erstellte Premium-Entwurf inkl. Longevity-Anamnese-Seite – bereits als lauffähiges WordPress-Block-Theme umgesetzt. Dazu zwei **real ausgelieferte Websites aus meiner Hand**:
+- **Referenzen / Arbeitsprobe:** Als sofortige, projektspezifische Arbeitsprobe dient der eigens für diese Ausschreibung erstellte Premium-Entwurf inkl. Longevity-Anamnese-Seite – bereits als lauffähiges WordPress-Block-Theme umgesetzt. **Klickbare Live-Demo (beide Designrichtungen): [supremor911.github.io/aurea-derma-demo](https://supremor911.github.io/aurea-derma-demo/varianten.html)**. Dazu zwei **real ausgelieferte Websites aus meiner Hand**:
   - **[gi-solutions.ch](https://gi-solutions.ch/)** — Website für ein internationales Industrieunternehmen (Metallbearbeitung; Standorte u. a. in der Schweiz), umgesetzt mit **WordPress und dem Page-Builder Divi**, mehrsprachig (DE/EN/Mne), in premium-industrieller Anmutung. Belegt genau den geforderten Stack: WordPress mit Page-Builder, sauber strukturiert und mehrsprachig.
   - **[aktedigital.de](https://aktedigital.de/)** — Website eines Digitalisierungs-/Scanservice mit ausgeprägtem **Datenschutz-Fokus** (DSGVO, BSI TR-RESISCAN, DIN 66399) und **conversion-orientierter** Gestaltung (Vertrauenskennzahlen, segmentierte Lösungen, Kundenstimmen u. a. aus der Medizintechnik, klarer 5-Schritt-Prozess, Lead-Strecke). Belegt genau die zwei Dinge, die für eine Arztpraxis zählen: sorgfältiger Umgang mit Datenschutz und eine Gestaltung, die zu Anfragen führt.
 
@@ -111,8 +112,8 @@ Die Ausschreibung verlangt eine für nicht-technische Personen bedienbare Lösun
 ---
 
 ### Checkliste vor dem Absenden
-- [ ] `[Verfügbarkeit/Start: …]` eingetragen
-- [ ] `[Kontakt: Telefon / E-Mail]` eingetragen
+- [x] Verfügbarkeit/Start eingetragen (nach Absprache, bis 15 h/Woche)
+- [x] Kontakt eingetragen (+41 79 352 35 02 · office@swissconsultdigital.ch)
 - [x] Referenzen ergänzt: gi-solutions.ch (WordPress/Divi) + aktedigital.de (Datenschutz/Conversion)
-- [ ] Mockup-Screenshots (PNG/PDF) oder Link beigelegt
+- [x] Live-Demo-Link beigelegt: supremor911.github.io/aurea-derma-demo
 - [ ] Optional: bestehende Bewerbungs-PDFs (CV, Projektliste, Zertifikate) angehängt
