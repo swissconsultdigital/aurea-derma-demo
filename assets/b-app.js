@@ -29,7 +29,18 @@
     });
     // Tap auf leere Overlay-Fläche (nicht auf einen Link) schliesst ebenfalls
     if (navLinks) navLinks.addEventListener('click', function (e) { if (e.target === navLinks) setMenu(false); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+    document.addEventListener('keydown', function (e) {
+      if (!nav.classList.contains('open')) return;
+      if (e.key === 'Escape') { setMenu(false); return; }
+      // Fokus-Falle: Tab bleibt innerhalb des offenen Overlays (Toggle + Menülinks)
+      if (e.key === 'Tab') {
+        var f = [t].concat(Array.prototype.slice.call(navLinks ? navLinks.querySelectorAll('a') : []));
+        if (!f.length) return;
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
   }
 
   /* ---------- Reveal ---------- */
@@ -209,7 +220,7 @@
   // Deterministischer Hash je Datum → variierende, aber stabile Verfügbarkeit (kein Math.random).
   function h(d, salt) { var k = d.getFullYear() * 1e4 + (d.getMonth() + 1) * 100 + d.getDate() + salt * 0.137; var x = Math.sin(k) * 43758.5453; return x - Math.floor(x); }
 
-  var state = { fach: null, grund: null, date: null, time: null, step: 0, weekOffset: 0 };
+  var state = { fach: null, grund: null, date: null, time: null, step: 0, weekOffset: 0, email: '', consent: false };
 
   function sow(d) { var x = new Date(d); x.setHours(0, 0, 0, 0); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; }
   function addDays(d, n) { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
@@ -289,12 +300,22 @@
     });
   }
 
+  function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v || ''); }
   function confirmUI() {
-    document.getElementById('bkConfirmBody').innerHTML =
+    var box = document.getElementById('bkConfirmBody');
+    box.innerHTML =
       '<div class="bk-summary">' +
       row('Fachrichtung', state.fach) + row('Anliegen', state.grund) +
       row('Datum', state.date) + row('Uhrzeit', state.time + ' Uhr') +
-      '</div><p class="hint">Dies ist eine unverbindliche Terminanfrage. Wir bestätigen Ihren Termin zeitnah und diskret. (Demo — es werden keine Daten übermittelt.)</p>';
+      '</div>' +
+      '<div class="b-field" style="margin-top:1.5rem"><label for="bkEmail">Ihre E-Mail-Adresse</label>' +
+      '<input id="bkEmail" type="email" inputmode="email" autocomplete="email" placeholder="ihre.adresse@beispiel.ch" value="' + (state.email || '') + '"></div>' +
+      '<label class="b-consent"><input type="checkbox" id="bkConsent"' + (state.consent ? ' checked' : '') +
+      '><span>Ich habe die <a href="datenschutz-b.html" style="color:var(--gold);text-decoration:underline">Datenschutzerklärung</a> gelesen und willige in die Verarbeitung meiner Angaben zur Terminvereinbarung ein.</span></label>' +
+      '<p class="hint">Unverbindliche Terminanfrage – wir bestätigen zeitnah und diskret. (Demo — es werden keine Daten übermittelt.)</p>';
+    var em = document.getElementById('bkEmail'), cs = document.getElementById('bkConsent');
+    em.addEventListener('input', function () { state.email = em.value.trim(); updateNav(); });
+    cs.addEventListener('change', function () { state.consent = cs.checked; updateNav(); });
   }
   function row(k, v) { return '<div class="row"><span class="k">' + k + '</span><span class="v">' + (v || '–') + '</span></div>'; }
 
@@ -305,7 +326,8 @@
   }
   function canAdvance() {
     return (state.step === 0 && state.fach) || (state.step === 1 && state.grund) ||
-           (state.step === 2 && state.date && state.time) || state.step === 3;
+           (state.step === 2 && state.date && state.time) ||
+           (state.step === 3 && validEmail(state.email) && state.consent);
   }
   function updateNav() {
     back.style.display = state.step === 0 ? 'none' : '';

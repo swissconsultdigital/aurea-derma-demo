@@ -452,8 +452,9 @@ p, .b-lead { text-wrap: pretty; }
 .b-fstep .step-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
 .b-fstep h4 { font-family: var(--serif); font-weight: 400; font-size: 1.45rem; color: var(--bone); margin-bottom: 1.4rem; }
 .b-field { margin-bottom: 1.2rem; }
+fieldset.b-field { border: 0; padding: 0; min-width: 0; }
 .b-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.b-field > label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--bone); margin-bottom: 0.5rem; }
+.b-field > label, .b-field > legend { display: block; float: none; width: auto; font-size: 0.85rem; font-weight: 600; color: var(--bone); margin-bottom: 0.5rem; padding: 0; }
 .b-field input, .b-field select, .b-field textarea {
   width: 100%; font-family: var(--sans); font-size: 0.97rem; color: var(--bone); background: var(--noir-3);
   border: 1px solid var(--line); border-radius: 10px; padding: 0.85rem 1rem; min-height: 48px; transition: border-color .3s; }

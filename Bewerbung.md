@@ -99,6 +99,15 @@ Die Ausschreibung verlangt eine für nicht-technische Personen bedienbare Lösun
 - **Lazy-Loading** für Bilder/Videos; Minifizierung und Bündelung von CSS/JS.
 - **Performantes Hosting** (SSD/NVMe, aktuelle PHP-Version, HTTP/2–3) – idealerweise CH-/EU-Standort, was Datenschutz und Ladezeit zugleich dient.
 
+**Mobile-UX & Barrierefreiheit — geprüft, nicht behauptet:** Die Smartphone-Ansicht wurde einem
+strukturierten **HIG-/WCAG-2.2-Audit** unterzogen (Apple Human Interface Guidelines, WCAG 2.2,
+Material – sieben Fachperspektiven mit unabhängiger Gegenprüfung). Alle wesentlichen Befunde sind
+umgesetzt: Tap-Ziele ≥ 44 px, sauber stapelnde Aktionen statt Überlauf, klickbare `tel:`/`mailto:`-
+Kontakte, vollständig per Tastatur bedienbare Formulare (`label`/`for`, `fieldset`/`legend`,
+`autocomplete`, Fehlermeldungen via `role=status`/`aria`), Respektieren von `prefers-reduced-motion`
+und ein art-direktierter, eigens beschnittener Smartphone-Hero. Jeder Fix wurde in einer echten
+Browser-Engine auf 360/390/768 px verifiziert – dieselbe Sorgfalt fliesst in den produktiven Build.
+
 ---
 
 ## 6 · Optionale Phasen — Shop & Mitgliederbereich (Ausblick)
