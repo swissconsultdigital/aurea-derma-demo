@@ -525,6 +525,9 @@ fieldset.b-field { border: 0; padding: 0; min-width: 0; }
 .b-nav-menu-cta { display: none; }
 @media (max-width: 900px) {
   .b-nav.open .b-nav-menu-cta { display: inline-flex; margin-top: 1.2rem; min-width: 220px; }
+  /* dunkler Text auf Creme erzwingen (sonst gewinnt .b-nav-links a mit bone-mut → kein Kontrast) */
+  .b-nav-links a.b-btn-cream { color: var(--ink); }
+  .b-nav-links a.b-btn-cream svg { color: var(--ink); }
   /* Menü-Links als grössere, klar trennbare Tap-Ziele */
   .b-nav.open .b-nav-links a:not(.b-btn) { display: block; padding: 0.45rem 1.5rem; }
 }
@@ -563,17 +566,20 @@ a.b-cl:hover { color: var(--bone); }
 }
 
 /* ===== Formular-Pflichtfeld-Validierung (Anamnese) — Gremium-Spez. ===== */
-:root { --b-warn: #EAA37E; } /* warmes Bernstein-Rose, >4.5:1 auf --noir, kein grelles Rot */
-.b-req { color: var(--gold); margin-left: 0.15em; font-weight: 600; }
+:root { --b-warn: #F2876A; } /* klares Koralle — deutlich distinkt vom Champagner-Gold, ~6:1 auf --noir */
+/* Pflicht-Marker in Warnfarbe (nicht Gold) → wird klar als „erforderlich" erkannt, hebt sich von den
+   dekorativen Gold-Akzenten ab. */
+.b-req { color: var(--b-warn); margin-left: 0.18em; font-weight: 700; }
 .b-vh { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
-.b-field-error { color: var(--b-warn); font-size: 0.82rem; margin-top: 0.45rem; display: flex; gap: 0.4rem; align-items: flex-start; line-height: 1.45; }
+.b-field-error { color: var(--b-warn); font-size: 0.86rem; font-weight: 500; margin-top: 0.5rem; display: flex; gap: 0.45rem; align-items: flex-start; line-height: 1.45; }
 .b-field-error[hidden] { display: none; }
-.b-field-error svg { width: 1.05em; height: 1.05em; flex: none; margin-top: 0.12em; }
-/* farb-unabhängiges Signal: Rahmen/Outline zusätzlich zur Farbe (WCAG 1.4.1) */
-.b-field input[aria-invalid="true"], .b-field textarea[aria-invalid="true"] { border-color: var(--b-warn); box-shadow: 0 0 0 1px var(--b-warn); }
+.b-field-error svg { width: 1.15em; height: 1.15em; flex: none; margin-top: 0.1em; }
+/* farb-unabhängiges Signal: kräftiger Rahmen + dezente Tönung zusätzlich zur Farbe (WCAG 1.4.1) */
+.b-field input[aria-invalid="true"], .b-field textarea[aria-invalid="true"], .b-field select[aria-invalid="true"] {
+  border-color: var(--b-warn); box-shadow: 0 0 0 2px var(--b-warn); background: rgba(242,135,106,0.07); }
 .b-consent input[aria-invalid="true"] { outline: 2px solid var(--b-warn); outline-offset: 2px; }
-fieldset.b-field[aria-invalid="true"] .b-choices { outline: 1px solid var(--b-warn); outline-offset: 5px; border-radius: 8px; }
-.b-form-alert { margin: 0 1.8rem 0.2rem; padding: 0.85rem 1.1rem; border: 1px solid var(--b-warn); border-radius: 10px;
-  background: rgba(234,163,126,0.09); color: var(--b-warn); font-size: 0.9rem; line-height: 1.5; }
+fieldset.b-field[aria-invalid="true"] .b-choices { outline: 2px solid var(--b-warn); outline-offset: 5px; border-radius: 8px; }
+.b-form-alert { margin: 0 1.8rem 0.2rem; padding: 0.95rem 1.15rem; border: 1.5px solid var(--b-warn); border-radius: 10px;
+  background: rgba(242,135,106,0.12); color: var(--b-warn); font-size: 0.92rem; font-weight: 500; line-height: 1.5; }
 .b-form-alert[hidden] { display: none; }
 @media (max-width: 600px) { .b-form-alert { margin-inline: 1.3rem; } }
