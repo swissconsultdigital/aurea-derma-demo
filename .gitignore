@@ -11,3 +11,8 @@ Thumbs.db
 *.log
 node_modules/
 .env
+
+# Privat/Arbeit — nicht ins oeffentliche Demo-Repo
+assets/img/*-source.jpg
+versand/*.docx
+versand/~$*
