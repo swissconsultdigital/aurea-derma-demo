@@ -2,11 +2,12 @@
 
 **Auftraggeber:** WE FRANCHISE GmbH · Ansprechpartnerin: Ellen Müller
 **Bewerber:** Gabriel Jäger · Swiss Consult Digital · Gordola (TI)
-**Beilage:** Premium-Entwurf – Startseite + Longevity-Anamnese-Seite, bereits umgesetzt als **lauffähiges WordPress-Block-Theme** („Noir Editorial")
-**Live-Demo (klickbar):** https://swissconsultdigital.github.io/aurea-derma-demo/
+**Beilage:** Premium-Entwurf – Startseite + Longevity-Anamnese-Seite, gebaut für **Desktop und Smartphone** („Noir Editorial").
+**Klickbare Demo (statisch – Design/UX/Performance):** https://swissconsultdigital.github.io/aurea-derma-demo/
+**Umsetzung:** darüber hinaus als **WordPress-Block-Theme** (FSE) samt verschlüsseltem Anfrage-Plugin lokal aufgebaut – Code-Walkthrough/Screencast auf Wunsch.
 
-> ✅ **Sendefertig:** Verfügbarkeit, Kontaktdaten, Referenzen und Live-Demo sind eingetragen.
-> Optional noch: bestehende Bewerbungs-PDFs (CV/Projektliste/Zertifikate) anhängen.
+> **Hinweis (Demo-Marke):** „AUREA / Dr. med. Carla Brunner" ist eine eigens für diese Bewerbung erstellte **fiktive Marke** (KI-Bilder, keine reale Praxis). Ihre echte CI übernehme ich später token-basiert, ohne Strukturänderung.
+> ✅ **Sendefertig.** Es genügen **dieses Anschreiben + die Demo + das Präsentations-PDF/Screenshots**; die internen Planungs-Notizen (README/DOKUMENTATION/WP-Pläne) bewusst **nicht** mitschicken. Optional: CV/Zertifikate anhängen.
 
 ---
 
@@ -14,7 +15,7 @@
 
 Sehr geehrte Frau Müller
 
-statt Ihnen nur ein Angebot zu schreiben, habe ich für die Praxis von Dr. med. Carla Brunner direkt einen konkreten Premium-Entwurf gebaut: ein vollständiges Mockup der Startseite und der Longevity-Anamnese-Seite. So sehen Sie meine gestalterische Linie, bevor wir das erste Wort gewechselt haben – das nimmt Ihnen Risiko und spart uns beiden Zeit.
+statt Ihnen nur ein Angebot zu schreiben, habe ich Ihnen einen konkreten Premium-Entwurf gebaut: Startseite und Longevity-Anamnese-Seite, durchgängig für **Desktop und Smartphone**. Damit Sie meine gestalterische Linie sofort sehen können, habe ich sie an einer eigens erstellten **fiktiven Demo-Marke** („AUREA", Dr. med. Carla Brunner) durchgespielt – Ihre echte Marke und CI übernehme ich später token-basiert. So sehen Sie meine Linie, bevor wir das erste Wort gewechselt haben – das nimmt Ihnen Risiko und spart uns beiden Zeit.
 
 Eine dermatologische Praxis mit Longevity-Anspruch verkauft kein Produkt, sondern Vertrauen in Haut, Gesundheit und ärztliche Urteilskraft. Darauf zahlt mein Entwurf gezielt ein: viel Weissraum, ruhige Eleganz und eine klare Hierarchie, die Kompetenz ausstrahlt – ganz ohne reisserisches Marketing oder Heilversprechen. Das ist nicht nur eine Frage des Geschmacks, sondern bei medizinischer Kommunikation auch eine der Zulässigkeit: sachlich und standeskonform statt werblich.
 
@@ -22,7 +23,7 @@ Premium heisst für mich dabei messbar mehr qualifizierte Terminanfragen, nicht 
 
 Mein Hintergrund ist bewusst ein anderer als der eines klassischen Massen-WordPress-Entwicklers: Ich komme aus dem Senior Commissioning- und Prozess-Engineering in regulierten Umfeldern (u. a. Pharma/GMP). Daraus bringe ich genau die Disziplin mit, die eine Praxis mit sensiblen Gesundheitsdaten braucht – konsequenter Datenschutz (DSG/DSGVO), lückenlose Dokumentation und termintreue Abwicklung. Technisch arbeite ich performant und automatisiert; zuletzt habe ich eine KI-gestützte QA-/Dokumenten-Pipeline (LLM + OCR, > 99 % Genauigkeit) aufgebaut.
 
-Als Pflege-Ebene empfehle ich den **nativen WordPress-Block- und Site-Editor** (Teil des WP-Kerns): keine zusätzlichen Lizenzkosten, beste Performance ohne Page-Builder-Ballast und sauber DSG-konform. Damit Ihr Team Texte, Bilder und Hinweise gefahrlos selbst pflegen kann, liefere ich fertige, gesperrte Inhalts-Bausteine (Block-Patterns) plus eine kurze Einführung. Wer eine klassische Page-Builder-Oberfläche bevorzugt, erhält dasselbe Design alternativ in Elementor Pro. Den Entwurf habe ich bereits als lauffähiges WordPress-Block-Theme umgesetzt – nicht nur als Bild. Dass ich WordPress nicht nur entwerfe, sondern produktiv ausliefere, belegen zwei eigene Live-Projekte: **gi-solutions.ch** (WordPress/Divi, mehrsprachig, internationales Industrieunternehmen) und **aktedigital.de** (datenschutz- und conversion-fokussiert) – Details unter „Referenzen".
+Als Pflege-Ebene empfehle ich den **nativen WordPress-Block- und Site-Editor** (Teil des WP-Kerns): keine zusätzlichen Lizenzkosten, beste Performance ohne Page-Builder-Ballast und sauber DSG-konform. Damit Ihr Team Texte, Bilder und Hinweise gefahrlos selbst pflegen kann, liefere ich fertige, gesperrte Inhalts-Bausteine (Block-Patterns) plus eine kurze Einführung. Wer eine klassische Page-Builder-Oberfläche bevorzugt, erhält dasselbe Design alternativ in Elementor Pro. Den Entwurf können Sie als klickbare Demo direkt ansehen (Design, UX, Performance – Desktop und Smartphone); darüber hinaus habe ich ihn bereits als **WordPress-Block-Theme** samt verschlüsseltem Anfrage-Plugin lokal aufgebaut – den Code zeige ich Ihnen gerne im kurzen Screencast. Dass ich WordPress nicht nur entwerfe, sondern produktiv ausliefere, belegen zusätzlich zwei eigene Live-Projekte: **gi-solutions.ch** (WordPress/Divi, mehrsprachig, internationales Industrieunternehmen) und **aktedigital.de** (datenschutz- und conversion-fokussiert) – Details unter „Referenzen".
 
 Ich bin in der Schweiz ansässig (Gordola, TI), Deutsch ist meine Muttersprache, und ein 100%-Remote-Setup ist für mich Standard. Verfügbar bin ich **nach Absprache, mit einer Kapazität von bis zu 15 Stunden pro Woche**; der geplante Start im Juli 2026 passt gut. Preislich orientiere ich mich an rund CHF 110/h, für klar umrissene Phasen mache ich Ihnen gerne ein faires Pauschalangebot – beides verhandelbar.
 
@@ -37,19 +38,31 @@ Tel. +41 79 352 35 02 · office@swissconsultdigital.ch
 
 ## 2 · Anschreiben (Kurzfassung für das Online-Formular)
 
-> Für das Bewerbungsfeld auf freelancermap – kompakter, falls Längenlimit.
+> Kurzes Anschreiben für das freelancermap-Bewerbungsfeld (Gremium Marketing · Dermatologin · Verkauf, iteriert; ehrliches Framing: Demo statisch, WP lokal gebaut).
 
-Sehr geehrte Frau Müller
+Sehr geehrte Frau Müller,
 
-statt nur ein Angebot zu schreiben, habe ich für die Praxis von Dr. med. Carla Brunner direkt einen Premium-Entwurf gebaut – ein Mockup der Startseite **und** der Longevity-Anamnese-Seite. So sehen Sie meine Linie sofort: viel Weissraum, ruhige Eleganz und eine klare, conversion-orientierte Nutzerführung, sachlich und standeskonform statt werblich.
+statt Ihnen nur ein Angebot zu schreiben, habe ich für Ihr Projekt einen konkreten Entwurf gebaut: eine Startseite und eine Longevity-Anamnese-Seite, durchgängig für Desktop und Smartphone.
 
-Mein Hintergrund ist Senior-Engineering in regulierten Umfeldern (u. a. Pharma/GMP). Das heisst für Ihr Projekt: konsequenter Datenschutz (DSG/DSGVO), saubere Dokumentation, termintreue, performante Umsetzung. Als Pflege-Ebene empfehle ich den **nativen WordPress-Block-Editor** (im Kern enthalten: keine Lizenz, top Performance, DSG-freundlich), für Laien per fertige Patterns + Kurzschulung pflegbar – **Elementor Pro** als gleichwertige Alternative, falls eine klassische Page-Builder-Oberfläche gewünscht ist. Den Entwurf habe ich bereits als lauffähiges Block-Theme umgesetzt; zwei eigene Live-Projekte belegen produktive WP-Auslieferung: **gi-solutions.ch** (WordPress/Divi) und **aktedigital.de**.
+Die Anmutung ist ruhige Eleganz mit viel Weissraum und einer klaren Nutzerführung, die sachlich und standeskonform zur Terminanfrage leitet. Damit Sie sich selbst ein Bild machen können, ist der Entwurf online begehbar:
 
-Ich bin in der Schweiz ansässig, Deutsch-Muttersprachler, 100 % Remote. Verfügbar nach Absprache (bis 15 h/Woche), Start 7/2026 passt. Richtwert ~CHF 110/h oder Pauschale – verhandelbar.
+https://swissconsultdigital.github.io/aurea-derma-demo/
 
-Gerne gehe ich den Entwurf in 15 Minuten mit Ihnen durch.
+Bewusst als klickbare Demo angelegt (Design, UX, Performance) — gemessen, nicht versprochen: Lighthouse 100 (Desktop) / 94 (Mobile). Das WordPress-Block-Theme läuft bei mir bereits lokal, Code-Walkthrough auf Wunsch. Die Marke «AUREA» ist fiktiv; Ihre echte Marke und Ihr Logo werden später sauber übernommen.
 
-Freundliche Grüsse, Gabriel Jäger · Swiss Consult Digital · +41 79 352 35 02 · office@swissconsultdigital.ch
+Technisch empfehle ich den nativen WordPress-Block-Editor (lizenzfrei, laienpflegbar über gesperrte Patterns), Elementor Pro als benannte Alternative.
+
+Mein Hintergrund ist Senior-Engineering in regulierten Umfeldern wie Pharma und GMP. Entsprechend diszipliniert gehe ich mit sensiblen Gesundheitsdaten um (DSG/DSGVO). Als Beleg zwei real ausgelieferte Referenzen: gi-solutions.ch (WordPress/Divi, mehrsprachig) und aktedigital.de (Datenschutz/Conversion).
+
+Ich bin in Gordola (TI) ansässig, Deutsch-Muttersprachler und arbeite zu 100% remote, bis 15 Stunden pro Woche. Der Start im Juli 2026 passt gut. Als Richtwert nenne ich rund CHF 110/h oder eine Pauschale, verhandelbar.
+
+Gerne stelle ich Ihnen den Entwurf kurz vor; 15 Minuten genügen. Sagen Sie mir einfach einen passenden Termin.
+
+Freundliche Grüsse
+Gabriel Jäger
+Swiss Consult Digital, Gordola (TI)
+Tel. +41 79 352 35 02
+office@swissconsultdigital.ch
 
 ---
 
@@ -57,7 +70,7 @@ Freundliche Grüsse, Gabriel Jäger · Swiss Consult Digital · +41 79 352 35 02
 
 **Empfehlung: der native WordPress-Block-/Site-Editor (Full Site Editing) — Elementor Pro als gleichwertige, benannte Alternative.**
 
-Die Ausschreibung verlangt eine für nicht-technische Personen bedienbare Lösung *und* Premium-Optik, Performance und DSG-Konformität. Für genau diese Kombination ist der **native Block-Editor heute die stärkste Wahl** — und genau so ist die beiliegende Arbeitsprobe bereits umgesetzt (lauffähiges WordPress-Block-Theme):
+Die Ausschreibung verlangt eine für nicht-technische Personen bedienbare Lösung *und* Premium-Optik, Performance und DSG-Konformität. Für genau diese Kombination ist der **native Block-Editor heute die stärkste Wahl** — und genau so habe ich die Arbeitsprobe zusätzlich zur klickbaren Demo aufgebaut (WordPress-Block-Theme, lokal lauffähig, `theme.json` + Patterns):
 
 - **Performance:** kein Page-Builder-Overhead, kein verschachtelter Div-Ballast, kein Render-Blocking durch Builder-Assets. Schlankes, sauberes HTML aus `theme.json` → ideale Voraussetzung für grüne Core Web Vitals bei bildlastiger Premium-Ästhetik.
 - **Pflegbarkeit für Laien:** Inhalte (Texte, Bilder, Hinweise) werden im **visuellen Block-Editor** gepflegt. Ich liefere **fertige, teils gesperrte Block-Patterns** (Hero, Leistung, Anamnese-Abschnitt …), sodass die Praxis Inhalte ändert, ohne Layout oder Marke zu gefährden — plus kurze Einführung/Screencast.
@@ -125,7 +138,7 @@ Beides empfehle ich als **eigene, klar abgegrenzte Phase** mit fairem Pauschalan
 
 - **Verfügbarkeit:** Einstieg **nach Absprache** (der geplante Projektstart im Juli 2026 passt gut), Kapazität **bis 15 Stunden pro Woche**; erste Phase (Hauptwebsite + Longevity-Anamnese-Seite) zeitnah umsetzbar.
 - **Honorar:** Richtwert rund **CHF 110/h** auf Schweizer Freelancer-Niveau; für klar definierte Phasen gerne ein faires **Pauschalangebot** – beides verhandelbar.
-- **Referenzen / Arbeitsprobe:** Als sofortige, projektspezifische Arbeitsprobe dient der eigens für diese Ausschreibung erstellte Premium-Entwurf inkl. Longevity-Anamnese-Seite – bereits als lauffähiges WordPress-Block-Theme umgesetzt. **Klickbare Live-Demo: [swissconsultdigital.github.io/aurea-derma-demo](https://swissconsultdigital.github.io/aurea-derma-demo/)**. Dazu zwei **real ausgelieferte Websites aus meiner Hand**:
+- **Referenzen / Arbeitsprobe:** Als sofortige, projektspezifische Arbeitsprobe dient der eigens für diese Ausschreibung erstellte Premium-Entwurf (fiktive Demo-Marke, KI-Bilder) inkl. Longevity-Anamnese-Seite, gebaut für Desktop und Smartphone. **Klickbare Demo (statisch): [swissconsultdigital.github.io/aurea-derma-demo](https://swissconsultdigital.github.io/aurea-derma-demo/)** — darüber hinaus als WordPress-Block-Theme + verschlüsseltes Anfrage-Plugin lokal aufgebaut (Code-Walkthrough auf Wunsch). Die einzelnen Leistungen sind in der Demo als Detail-Ansichten gelöst; im Produktivbau erhält jede Leistung eine eigene, indexierbare Seite (SEO). Dazu zwei **real ausgelieferte Websites aus meiner Hand**:
   - **[gi-solutions.ch](https://gi-solutions.ch/)** — Website für ein internationales Industrieunternehmen (Metallbearbeitung; Standorte u. a. in der Schweiz), umgesetzt mit **WordPress und dem Page-Builder Divi**, mehrsprachig (DE/EN/Mne), in premium-industrieller Anmutung. Belegt genau den geforderten Stack: WordPress mit Page-Builder, sauber strukturiert und mehrsprachig.
   - **[aktedigital.de](https://aktedigital.de/)** — Website eines Digitalisierungs-/Scanservice mit ausgeprägtem **Datenschutz-Fokus** (DSGVO, BSI TR-RESISCAN, DIN 66399) und **conversion-orientierter** Gestaltung (Vertrauenskennzahlen, segmentierte Lösungen, Kundenstimmen u. a. aus der Medizintechnik, klarer 5-Schritt-Prozess, Lead-Strecke). Belegt genau die zwei Dinge, die für eine Arztpraxis zählen: sorgfältiger Umgang mit Datenschutz und eine Gestaltung, die zu Anfragen führt.
 
